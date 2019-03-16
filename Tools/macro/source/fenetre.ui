@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>fenetre</class>
+ <widget class="QWidget" name="fenetre">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1136</width>
+    <height>362</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Code</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLineEdit" name="txtInfo">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="TexteCode"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Ajouter à la ligne </string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="AddLigne">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="AddAction">
+          <item>
+           <property name="text">
+            <string>Attendre</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Souris</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Clavier</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Ecrire</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Molette</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Déplacer la souris</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Vide</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="AddTemps">
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="maximum">
+           <double>86400.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.500000000000000</double>
+          </property>
+          <property name="value">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="AddTempsLbl">
+          <property name="text">
+           <string>secondes</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="AddBoutonSouris">
+          <item>
+           <property name="text">
+            <string>Click-Gauche</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Click-Droit</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Click-Molette</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="AddTouche">
+          <item>
+           <property name="text">
+            <string>A</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>B</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>C</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>D</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>E</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>F</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>G</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>H</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>I</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>J</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>K</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>L</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>M</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>N</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>O</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>P</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Q</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>R</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>S</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>T</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>U</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>V</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>W</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>X</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Y</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Z</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>1 (&amp;)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>2 (é)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>3 (&quot;)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>4 (')</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>5 (()</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>6 (-)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>7 (è)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>8 (_)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>9 (ç)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>0 (à)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>=</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Ctrl</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Shift (Maj)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Alt</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Windows</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Espace</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Alt-Gr</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Entrée</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Suppr (delete)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Annuler (backspace)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Echap</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Flèche_Gauche</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Flèche_Droite</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Flèche_Haut</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Flèche_Bas</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>F1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>F2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>F3</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>F4</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>F5</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>F6</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>F7</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>F8</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>F9</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>F10</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>F11</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>F12</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Fin (end)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Début</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Tab</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>,</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>;</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>:</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>!</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>^</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>$</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ù</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>*</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Imprim_écran</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="AddEtat">
+          <item>
+           <property name="text">
+            <string>Clické</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Pressé</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Relaché</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="txtEcrire"/>
+        </item>
+        <item>
+         <widget class="QLabel" name="AddTourMoletteLbl">
+          <property name="text">
+           <string>Tourner de </string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="AddTourMolette">
+          <property name="minimum">
+           <double>-9999.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>9999.000000000000000</double>
+          </property>
+          <property name="value">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="AddDeplaceType">
+          <item>
+           <property name="text">
+            <string>X=</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Y=</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>X~=</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Y~=</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="AddDeplace">
+          <property name="minimum">
+           <number>-10000</number>
+          </property>
+          <property name="maximum">
+           <number>10000</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="bAjouter">
+          <property name="text">
+           <string>Ajouter</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QPushButton" name="bRetirer">
+          <property name="text">
+           <string>Retirer la ligne</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="RetireLigne">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="bOuvrir">
+       <property name="text">
+        <string>Ouvrir</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bEnregistrerSous">
+       <property name="text">
+        <string>Enregistrer sous</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bEnregistrer">
+       <property name="text">
+        <string>Enregistrer</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bNouveau">
+       <property name="text">
+        <string>Nouveau</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bExecuter">
+       <property name="text">
+        <string>Executer</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bCancel">
+       <property name="text">
+        <string>Arreter</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Attendre (sec)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="tempsExec">
+       <property name="maximum">
+        <number>3600</number>
+       </property>
+       <property name="value">
+        <number>1</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="repete">
+       <property name="minimum">
+        <number>-1</number>
+       </property>
+       <property name="maximum">
+        <number>2147483647</number>
+       </property>
+       <property name="value">
+        <number>1</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>éxécutions (-1 pour infini)</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
