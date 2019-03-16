@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/icones">
+        <file>icones/annuler.png</file>
+        <file>icones/valide2.png</file>
+    </qresource>
+</RCC>

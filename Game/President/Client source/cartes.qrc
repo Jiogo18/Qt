@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/carte">
+        <file>cartes/00-2.bmp</file>
+        <file>cartes/00-1.bmp</file>
+    </qresource>
+</RCC>

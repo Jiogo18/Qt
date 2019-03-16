@@ -1,0 +1,19 @@
+Changelog client.exe Président
+#ajouts:
+#retraits:
+#fixs:
+#autres:
+
+#Version 1.3:
+#ajouts:
+Les changements de la version sont disponnibles depuis la fenètre d'information.
+Configuration des sons dans la fenètre de paramètres et application du volume.
+Les paramètres sont enregistrés.
+Les fenètres Information et Paramètre son maintenand des QDialog, vous pourez connaitre la description de chaques éléments
+Vous ne pourez mettre que des caractères alphanumériques pour vos pseudos
+Les pseudos "Serveur", "Undefined" ou encore "" sont blockés
+Compatible avec le serveur 1.0
+#retraits:
+#fixs:
+Retour de [[Commande]] au lieu de [Commande]
+#autres:

@@ -1,0 +1,17 @@
+Changelog serveur.exe du Président
+#ajouts:
+#retraits:
+#fixs:
+#autres:
+
+#Version 1.0:
+#ajouts:
+fenetre de log de la partie
+#retraits:
+#fixs:
+/pass fonctionne
+Tout seul, vous n'aurez la posibilitée de posée qu'une carte ultime !
+Vous ne pourez plus changer les noms des clients dans les listes.
+RAM plus légère ? Les variables sont moins diséminées partout, on aime les pointeurs !
+Restructuration de toute l'interface, les clients sont dans des widgets persos
+#autres:
