@@ -1,5 +1,4 @@
 # Qt
-<<<<<<< HEAD
 
 All my Qt code
 
@@ -7,5 +6,3 @@ Find your program and pick every DDL that the program want with a critical box h
 Some program need dll who are on Qt/DLL
 
 Some program are created with Qt5.11.0 MinGW 32bit on Windows 10
-=======
->>>>>>> parent of 365ee73... Add a lot off prog

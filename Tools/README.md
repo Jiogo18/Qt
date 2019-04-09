@@ -16,6 +16,14 @@ Qt5Widgets.dll
 decoupe_image:
 découpe une image selon le nombre d'image souhaité
 
+ecranDeVeille:
+affiche des fichiers lorsque vous ne faites pas d'action (alternative à celui de Windows qui bug trop)
+detecte : -la position de la souris
+	  -les changements d'images de l'écran (quand vous regardez un film) (rafraichissement toutes les 2secs)
+	  -le clavier et la souris lorsque la vidéo est affichée
+Lancer l'application et ouvrez la à partir de la zone de notification, paramétrez la et mettez un raccourcis dans %Appdata%\Microsoft\Windows\Start Menu
+
+
 LumClavier:
 allume avec un patern les 3 lumières du clavier
 

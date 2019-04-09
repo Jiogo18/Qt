@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>fenetre</class>
+ <widget class="QWidget" name="fenetre">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>410</width>
+    <height>353</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Fenetre options ecran de veille</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Fichier</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="lFichier">
+       <property name="text">
+        <string>Choisissez un fichier / un dossier</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Temps d'inactivité</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QTimeEdit" name="tInactivite">
+       <property name="minimumTime">
+        <time>
+         <hour>0</hour>
+         <minute>0</minute>
+         <second>10</second>
+        </time>
+       </property>
+       <property name="currentSection">
+        <enum>QDateTimeEdit::HourSection</enum>
+       </property>
+       <property name="displayFormat">
+        <string>HH:mm:ss</string>
+       </property>
+       <property name="time">
+        <time>
+         <hour>0</hour>
+         <minute>3</minute>
+         <second>0</second>
+        </time>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Temps restant</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLCDNumber" name="lcdNBTime">
+       <property name="segmentStyle">
+        <enum>QLCDNumber::Flat</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Taux d'erreur de la souris</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QSpinBox" name="sTxMouse">
+       <property name="maximum">
+        <number>500</number>
+       </property>
+       <property name="value">
+        <number>50</number>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Taux d'erreur screenshot</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QDoubleSpinBox" name="sTxScreenshot">
+       <property name="suffix">
+        <string> %</string>
+       </property>
+       <property name="maximum">
+        <double>100.000000000000000</double>
+       </property>
+       <property name="value">
+        <double>2.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Afficher à chaques démarrage</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QCheckBox" name="checkStartShow">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Vidéos trouvées</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="lblVideoNb">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="bActuVideo">
+         <property name="text">
+          <string>Actualiser</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The program will keep running in the&lt;/p&gt;&lt;p&gt;system tray. To terminate the program,&lt;/p&gt;&lt;p&gt;choose &lt;span style=&quot; font-weight:600;&quot;&gt;Quit&lt;/span&gt; in the context menu&lt;/p&gt;&lt;p&gt;of the system tray entry.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="bLaunch">
+     <property name="text">
+      <string>Afficher</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>bLaunch</tabstop>
+  <tabstop>bActuVideo</tabstop>
+  <tabstop>lFichier</tabstop>
+  <tabstop>tInactivite</tabstop>
+  <tabstop>sTxMouse</tabstop>
+  <tabstop>sTxScreenshot</tabstop>
+  <tabstop>checkStartShow</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
