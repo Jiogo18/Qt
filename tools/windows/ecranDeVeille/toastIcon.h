@@ -16,6 +16,7 @@ class toastIcon : public QSystemTrayIcon
 
 public:
     toastIcon(fenetre *parent);
+    ~toastIcon();
     void setVisible(bool visible);
 
 private slots:

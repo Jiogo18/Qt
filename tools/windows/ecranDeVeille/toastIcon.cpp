@@ -20,6 +20,11 @@ toastIcon::toastIcon(fenetre *parent) : QSystemTrayIcon((QObject*)parent)
     QSystemTrayIcon::show();
 }
 
+toastIcon::~toastIcon()
+{
+    parentP=nullptr; delete trayIconMenu; delete minimizeAction; delete restoreAction; delete quitAction;
+}
+
 void toastIcon::setVisible(bool visible)
 {
     minimizeAction->setEnabled(visible);
@@ -30,9 +35,11 @@ void toastIcon::setVisible(bool visible)
 void toastIcon::iconActivated(QSystemTrayIcon::ActivationReason reason)
 {
     switch (reason) {
-    case QSystemTrayIcon::Trigger://presser
     case QSystemTrayIcon::DoubleClick:
-        parentP->setVisible(!parentP->isVisible());//permer de recacher la fenetre
+        if(parentP->isVisible())
+            parentP->hide();
+        else
+            parentP->show();
         break;
     case QSystemTrayIcon::MiddleClick:
         quitAction->trigger();//quit

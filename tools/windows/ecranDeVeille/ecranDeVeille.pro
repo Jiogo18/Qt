@@ -1,6 +1,8 @@
-QT += widgets multimediawidgets multimedia core
+QT += widgets multimediawidgets multimedia core gui
 
 SOURCES += \
+    ecranDeVeille.cpp \
+    imageTool.cpp \
     main.cpp \
     fenetre.cpp \
     toastIcon.cpp \
@@ -10,7 +12,9 @@ FORMS += \
     fenetre.ui
 
 HEADERS += \
+    ecranDeVeille.h \
     fenetre.h \
+    imageTool.h \
     toastIcon.h \
     videoWidget.h
 
