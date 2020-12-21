@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>fenetre</class>
+ <widget class="QWidget" name="fenetre">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>684</width>
+    <height>525</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Registre editor</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tabRechercher">
+      <attribute name="title">
+       <string>Rechercher et séparer</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Fichier source du registre</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QLineEdit" name="splitPath">
+              <property name="text">
+               <string>D:/J/Programmes/C++/Qt/outils/regedit-spliter/BUILD/build-Desktop_Qt_5_15_0_MinGW_64_bit-Debug/reg files/1/1.reg</string>
+              </property>
+              <property name="placeholderText">
+               <string>Chemain d'accès au fichier</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="bSplitOpen">
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="whatsThis">
+               <string>Rechercher</string>
+              </property>
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="lblSplitWhitelist">
+           <property name="whatsThis">
+            <string>Elements à inclure contient...</string>
+           </property>
+           <property name="text">
+            <string>Whitelist</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QPlainTextEdit" name="splitWhitelist">
+           <property name="plainText">
+            <string>Need for Speed
+EA Core
+Electronic Arts
+NFS Hot Pursuit
+</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="lblSplitBlacklist">
+           <property name="whatsThis">
+            <string>Elements à exclure contient...</string>
+           </property>
+           <property name="text">
+            <string>Blacklist</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QPlainTextEdit" name="splitBlacklist">
+           <property name="plainText">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QPushButton" name="bSplit">
+             <property name="whatsThis">
+              <string>créé 2 fichiers, un de whitelist (résultat) et un de blacklist (le reste)</string>
+             </property>
+             <property name="text">
+              <string>Rechercher et séparer</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="bSplitAndNext">
+             <property name="whatsThis">
+              <string>Même action que &quot;Rechercher et séparer&quot; mais ouvre le fichier source avec le reste des clefs non trouvées</string>
+             </property>
+             <property name="text">
+              <string>Séparer et continuer</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_2">
+             <property name="title">
+              <string>Sortie</string>
+             </property>
+             <layout class="QFormLayout" name="formLayout">
+              <item row="0" column="0">
+               <widget class="QLabel" name="lblClefsTotal">
+                <property name="text">
+                 <string>Clefs total</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="clefsTotal">
+                <property name="whatsThis">
+                 <string>clefs du fichier source</string>
+                </property>
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="lblClefsWhitelist">
+                <property name="text">
+                 <string>Clefs de la Whitelist</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="lblClefsBlacklist">
+                <property name="text">
+                 <string>Clefs de la Blacklist</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLabel" name="clefsWhitelist">
+                <property name="whatsThis">
+                 <string>clefs du fichier whitelist</string>
+                </property>
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLabel" name="clefsBlacklist">
+                <property name="whatsThis">
+                 <string>clefs du fichier blacklsit</string>
+                </property>
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="lblClefsSemiWhitelist">
+                <property name="text">
+                 <string>Clefs en Semi-Whitelist</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLabel" name="clefsSemiWhitelist">
+                <property name="whatsThis">
+                 <string>clefs du fichier whitelist</string>
+                </property>
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_3">
+           <property name="title">
+            <string>Valeurs notables de la whitelist</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QPlainTextEdit" name="whitelistValueNotable">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabRassembler">
+      <attribute name="title">
+       <string>Rassembler</string>
+      </attribute>
+      <widget class="QPushButton" name="bRassemblerAdd">
+       <property name="geometry">
+        <rect>
+         <x>200</x>
+         <y>50</y>
+         <width>221</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Ajouter des fichiers</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="bRassembler">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>100</y>
+         <width>221</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Extraire</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="tabExecuter">
+      <attribute name="title">
+       <string>Verifier et Executer</string>
+      </attribute>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QProgressBar" name="pbChargement">
+     <property name="value">
+      <number>0</number>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
