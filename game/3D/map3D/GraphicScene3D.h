@@ -5,6 +5,7 @@
 #include <QImage>
 #include "obj3D.h"
 #include "QPoint3D.h"
+#include <QTransform>
 
 class GraphicScene3D
 {
@@ -28,7 +29,7 @@ private:
     obj3D *client;//la caméra
     QImage imgCamera;
     QList<obj3D> *objets;
-    const QString ressourcepacks="C:/Qt/MesProg/jeux/map3D/ressourcepacks/";
+    const QString ressourcepacks=":/ressourcepacks/";
     QString ressourcepack="defaut/";
 };
 

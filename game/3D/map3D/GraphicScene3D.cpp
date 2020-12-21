@@ -3,7 +3,7 @@
 GraphicScene3D::GraphicScene3D()
 {
     client=new obj3D();
-    imgCamera.load("C:/Qt/MesProg/jeux/map3D/ressourcepacks/defaut/textures/camera.png");
+    imgCamera.load(ressourcepacks+"defaut/textures/camera.png");
     imgCamera=imgCamera.scaled(imgCamera.width()*2, imgCamera.height()*2);
     objets=new QList<obj3D>;
 }
@@ -317,7 +317,7 @@ QImage GraphicScene3D::drawLigne(QImage img, QPoint3D pt0, QPoint3D pt1, QString
 
     QImage imgAxe(loadImg(file));
     imgAxe=imgAxe.scaled(imgAxe.width()*2, abs(d1));//longueur
-    QMatrix matrixR(cos(rotation), sin(rotation), -sin(rotation), cos(rotation), 0, 0);
+    QTransform matrixR(cos(rotation), sin(rotation), -sin(rotation), cos(rotation), 0, 0);
 
     img = compileImage(img, (pt0.x()+pt1.x())/2 + img.width()/2,
                        (pt0.y()+pt1.y())/2 + img.height()/2,

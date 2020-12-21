@@ -5,6 +5,7 @@
 #include <QList>
 #include "QPoint3D.h"
 #include <QtMath>
+#include <QMap>
 
 class obj3D : public QPoint3D//la pos principalle de l'obj3D
 {

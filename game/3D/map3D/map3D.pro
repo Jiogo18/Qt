@@ -12,3 +12,6 @@ HEADERS += \
     GraphicScene3D.h \
     QPoint3D.h \
     obj3D.h
+
+RESOURCES += \
+    ressources.qrc

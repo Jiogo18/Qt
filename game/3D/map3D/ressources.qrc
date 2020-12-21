@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ressourcepacks/defaut/textures/camera.png</file>
+        <file>ressourcepacks/defaut/textures/axes/axeX.png</file>
+        <file>ressourcepacks/defaut/textures/axes/axeY.png</file>
+        <file>ressourcepacks/defaut/textures/axes/axeZ.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/acacia_log.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/acacia_log_top.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/birch_log.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/birch_log_top.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/block_nul.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/dark_oak_log.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/dark_oak_log_top.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/jungle_log.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/jungle_log_top.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/oak_log.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/oak_log_top.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/spruce_log.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/spruce_log_top.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/stripped_acacia_log.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/stripped_acacia_log_top.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/stripped_birch_log.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/stripped_birch_log_top.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/stripped_dark_oak_log.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/stripped_dark_oak_log_top.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/stripped_jungle_log.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/stripped_jungle_log_top.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/stripped_oak_log.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/stripped_oak_log_top.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/stripped_spruce_log.png</file>
+        <file>ressourcepacks/defaut/textures/blocks/stripped_spruce_log_top.png</file>
+    </qresource>
+</RCC>
