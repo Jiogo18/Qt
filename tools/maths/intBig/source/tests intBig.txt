@@ -1,0 +1,89 @@
+N=323 (17 et 19)
+D=227
+E=203
+M=123
+MC avec E=149 => 4, 302, 310, 81, 123
+MC avec D=81
+
+
+643 et 673
+N=432739
+D=217691
+E=431315
+M=123
+MC avec D=55702
+MC avec E=304444
+
+1: 55702 >> 58681 (en 154 msec)
+2: 58681 >> 142323 (en 292 msec)
+3: 142323 >> 138737 (en 446 msec)
+mais ça donne 406913
+
+391 (23 et 17)
+193
+321
+123 => 174, 259, 242, 55, 72, 361, 4, 140, 225, 123
+123 =>225
+
+193^2=37249
+12=>216, 233
+
+a^b % n
+=a%n*a%n*a%n... b fois
+si b>n ?
+a=3
+b=5
+n=4
+3^5%4=3 = 3^1 (conincidence)
+12^30%23=8 !=12^7%23 donc non c'est pas ça
+par contre 12^8%23=8
+3^30%23=6
+et ici aussi 3^8%23=6 => on peut pas simplifier D/E, obligé d'optimiser les uintBig
+
+
+donnees1
+tests pour intBig.exe:
+N=151831392054253903
+D=17024572463494507
+E=151831391154022003
+M123D=>137255806365993146 (en 4977 msec)
+M123E=>57528260984385467 (en 5056 msec)
+un peu gros...
+mais ça ira j'espère
+
+quint64 start=QDateTime::currentMSecsSinceEpoch();
+debug::d("type à "+QString::number(start));
+
+quint64 stop=QDateTime::currentMSecsSinceEpoch();
+debug::d("type fin de "+QString::number(start)+", durée: "+QString::number(stop-start)+" msec");
+debug::stat("type", start, stop);
+
+vraiment trop gros...
+
+
+
+donnees2 test avec intBig.exe
+N=432739
+D=217691
+E=431315
+M=123
+MC avec D=55702 (décodé en 400 msec)
+MC avec E=304444
+(mis plus haut:)
+N=151831392054253903
+E=151831391154022003
+M123D=>137255806365993146
+(décodé en 10000 msec)
+
+tester les sqrt après (grosse partit changée dans intBig4)
+test != et ==
+
+
+sqrt(1 000 000)=1 000
+900^2 = 810 000
+1000000-810000 = 190000
+sqrt(190000) = 435
+
+sqrt(63914715|1036912826)
+=sqrt(137 255 806 365 993 146)
+=370 480 507

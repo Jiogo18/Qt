@@ -6,15 +6,13 @@
 #include <QDateTime>
 #include <QFileDialog>
 #include <QMap>
+#include "Console.h"
 
-namespace Ui {
-class fenetre;
-}
+namespace Ui { class fenetre; }
 
 class fenetre : public QWidget
 {
     Q_OBJECT
-
 public:
     explicit fenetre(QWidget *parent = 0);
     fenetre(const fenetre &fen);
@@ -30,12 +28,17 @@ public:
     void fermerFichier();
     void parcourir();
     void ecrireStats();
+    void calcInfo1();
+
+    void calcConsole();
 
 private:
     Ui::fenetre *ui;
     bool calcOn;
     QFile *fSave;
+    QFile *fStats;
     QMap<QString, QList<quint64>> mapStats;//temps total, nb d'appel, temps min, temps max
+    Console console;
 };
 
 #endif // FENETRE_H

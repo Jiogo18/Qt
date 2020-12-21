@@ -1,0 +1,155 @@
+plus rapide:
+* 984 -> 831	4450 -> 25489 	(0.2 -> 0.03)
+- 17 -> 7		109 -> 109 	(0.15 -> 0.06)
++ 145 -> 269	3141 -> 8641 	(0.05 -> 0.03)
+/quint64 110 -> 2522	10 -> 951 	(11->2.65)
+< 209 -> 174	4360 -> 6204 	(0.05 -> 0.03)
+== 35 -> 9	666 -> 220 		(0.05->0.04)
+CustomToCustom 198 -> 2440	148 -> 2009 	(1.34->1.21)
+toBase (rien) -> 3	 -> 112		(->0.03) (meme fonction mais erreur de str)
+CustomToCustom avec toBase ça fait 1.15 de moyenne
+fromText 15->0	3->3 (5->0)
+
+
+plus lent:
+% 2079 -> 3426	110 -> 110 	(18.8->31.1)
+/ 1990 -> 3396		109 -> 109 	(18.3->31.1)
+pow2 2016 -> 3149	10 -> 10	(202->315)
+pow2_2 255 -> 375	10 -> 10	(26->38)
+toString 73 -> 5	16 -> 16	(4.6->0.3)
+
+^quint64 (rien) -> 1232	 -> 6104 	( -> 0.2)
+
+
+v1
+2:/quint64 à passé 31529 msec pour 3233 calculs. min:0 max:93
+10:/ à passé 3579 msec pour 109 calculs. min:0 max:64
+50:/ à passé 2645 msec pour 109 calculs. min:0 max:48
+80:/ à passé 3026 msec pour 109 calculs. min:0 max:161
+99:/ à passé 2652 msec pour 109 calculs. min:0 max:218
+100:/ à passé 1730 msec pour 109 calculs. min:0 max:29
+100 (2)/ à passé 1741 msec pour 109 calculs. min:0 max:43
+101:/ à passé 2921 msec pour 109 calculs. min:0 max:56
+110:/ à passé 2727 msec pour 109 calculs. min:0 max:59
+200:/ à passé 4259 msec pour 109 calculs. min:0 max:138
+1000:/ à passé 7211 msec pour 109 calculs. min:0 max:131
+
+
+v2:
+90:/ à passé 2451 msec pour 109 calculs. min:0 max:64
+100:/ à passé 2199 msec pour 109 calculs. min:0 max:54
+110:/ à passé 3100 msec pour 109 calculs. min:0 max:66
+
+v3:
+90:/ à passé 2268 msec pour 109 calculs. min:0 max:58
+100:/ à passé 1973 msec pour 109 calculs. min:0 max:50
+110:/ à passé 2909 msec pour 109 calculs. min:0 max:146
+
+
+avec des nbs plus grd:
+v1:
+100:/ à passé 184038 msec pour 910 calculs. min:2 max:467
+
+test2:
+plus rapide:
+* 1202 -> 418	4450 -> 10414 	(0.27 -> 0.04)
+- 31 -> 9		109 -> 109 	(0.28 -> 0.08)
+/quint64 128 -> 698	10 -> 460 	(13->1.52)
+CustomToCustom 224 -> 	148 ->  	(1.51->)
+toBase (rien) -> 665	 -> 1139		(->0.58) CustomToCustom->toBase
+fromText 13->1	3->3 (4.3->0.33)
+toString 75 -> 6	16 -> 16	(4.7->0.4)
+
+similaire:
++ 187 -> 281	3141 -> 7299 	(0.06 -> 0.04)
+< 252 -> 236	4360 -> 7550 	(0.06 -> 0.03)
+== 35 -> 10	666 -> 220 		(0.052->0.045)
+% 2651 -> 2160	110 -> 110 	(24.1->19.6)
+/ 2542 -> 2122		109 -> 109 	(23.3->19.5)
+pow2 2540 -> 2060	10 -> 10	(254->206)
+pow2_2 335 -> 214	10 -> 10	(34->21)
+
+^quint64 (rien) -> 1232	 -> 6104 	( -> 0.2)
+
+
+
+nb plus grands:
+plus rapide:
+/quint64 680 -> 30632	31 -> 14381 	(22->2.13)
+fromText 27->0	3->3 (9->0)
+toString 92 -> 3	37 -> 37	(2.5->0.08)
++ 3457 -> 5119	134914 -> 524118 	(0.026 -> 0.0098)
+< 4239 -> 3019	164951 -> 414449 	(0.026 -> 0.0073)
+== 123 -> 14	5508 -> 1822 		(0.022->0.0077)
+
+similaire:
+* 35119 -> 12293	165800 -> 1216819 	(0.21 -> 0.01)
+- 87 -> 28		910 -> 910 	(0.096 -> 0.031)
+CustomToCustom 793 -> 	1012 ->  	(0.78->)
+toBase (rien) -> 30090	 -> 30562		(->0.98) CustomToCustom->toBase
+% 55444 -> 59289	911 -> 911 	(60.9->65)
+/ 54972 -> 59190	910 -> 910 	(60.4->65)
+pow2 54823 -> 57743	31 -> 31	(1768->1863)
+pow2_2 1825 -> 2009	31 -> 31	(58.9->64.8)
+
+^quint64 (rien) -> 18238	 -> 159794 	( -> 0.1)
+
+
+v1:
+/ à passé 41949 msec pour 910 calculs. min:0 max:98
+/2 à passé 41941 msec pour 910 calculs. min:0 max:98
+/3 à passé 19153 msec pour 15808 calculs. min:0 max:42
+/4 à passé 22277 msec pour 15808 calculs. min:0 max:15
+
+100:
+/ à passé 12522 msec pour 910 calculs. min:0 max:65
+/2 à passé 12508 msec pour 910 calculs. min:0 max:65
+/3 à passé 11825 msec pour 15756 calculs. min:0 max:32
+/4 à passé 245 msec pour 15756 calculs. min:0 max:2
+
+10:
+/ à passé 7862 msec pour 910 calculs. min:0 max:64
+/2 à passé 7845 msec pour 910 calculs. min:0 max:64
+/3 à passé 5849 msec pour 30448 calculs. min:0 max:14
+/4 à passé 733 msec pour 30448 calculs. min:0 max:7
+
+2:
+/ à passé 14233 msec pour 910 calculs. min:0 max:54
+/2 à passé 14211 msec pour 910 calculs. min:0 max:54
+/3 à passé 8941 msec pour 98561 calculs. min:0 max:30
+/4 à passé 1952 msec pour 98561 calculs. min:0 max:7
+
+20:
+/ à passé 6007 msec pour 910 calculs. min:0 max:43
+/2 à passé 5993 msec pour 910 calculs. min:0 max:42
+/3 à passé 5079 msec pour 23444 calculs. min:0 max:20
+/4 à passé 330 msec pour 23444 calculs. min:0 max:4
+
+25:
+/ à passé 10017 msec pour 910 calculs. min:0 max:32
+/2 à passé 9999 msec pour 910 calculs. min:0 max:32
+/3 à passé 8529 msec pour 22200 calculs. min:0 max:9
+/4 à passé 558 msec pour 22200 calculs. min:0 max:13
+
+30:
+/ à passé 5828 msec pour 910 calculs. min:0 max:20
+/2 à passé 5819 msec pour 910 calculs. min:0 max:20
+/3 à passé 5049 msec pour 20938 calculs. min:0 max:6
+/4 à passé 263 msec pour 20938 calculs. min:0 max:5
+retest
+/ à passé 7162 msec pour 910 calculs. min:0 max:24
+/2 à passé 7151 msec pour 910 calculs. min:0 max:24
+/3 à passé 6200 msec pour 20938 calculs. min:0 max:14
+/4 à passé 356 msec pour 20938 calculs. min:0 max:2
+
+40:
+/ à passé 8895 msec pour 910 calculs. min:0 max:53
+/2 à passé 8879 msec pour 910 calculs. min:0 max:53
+/3 à passé 7953 msec pour 19614 calculs. min:0 max:25
+/4 à passé 333 msec pour 19614 calculs. min:0 ma
+
+50:
+/ à passé 10037 msec pour 910 calculs. min:0 max:43
+/2 à passé 10028 msec pour 910 calculs. min:0 max:43
+/3 à passé 9049 msec pour 18336 calculs. min:0 max:12
+/4 à passé 371 msec pour 18336 calculs. min:0 max:12

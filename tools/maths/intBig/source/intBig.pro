@@ -4,16 +4,24 @@ FORMS += \
     fenetre.ui
 
 HEADERS += \
+    Console.h \
     fenetre.h \
-    uintBig.h \
     RSA.h \
-    convertisseurBases.h \
-    debug.h
+    debug.h \
+    intBig4Parent.h \
+    intBig4.h \
+    intBig5Parent.h \
+    intBig5.h \
+    intBig6.h
 
 SOURCES += \
+    Console.cpp \
     fenetre.cpp \
+    intBig6.cpp \
     main.cpp \
-    uintBig.cpp \
     RSA.cpp \
-    convertisseurBases.cpp \
-    debug.cpp
+    debug.cpp \
+    intBig4Parent.cpp \
+    intBig4.cpp \
+    intBig5Parent.cpp \
+    intBig5.cpp
