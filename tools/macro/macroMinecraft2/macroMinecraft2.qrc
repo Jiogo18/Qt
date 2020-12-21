@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/chest.ico</file>
+        <file>icons/crafting_table.ico</file>
+        <file>icons/player.ico</file>
+        <file>icons/world.ico</file>
+    </qresource>
+</RCC>
