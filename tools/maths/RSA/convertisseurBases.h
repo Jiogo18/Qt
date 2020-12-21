@@ -3,7 +3,7 @@
 
 #include <QString>
 #include <QVector>
-#include "uintBig.h"
+#include "intBig.h"
 #include <QtMath>
 
 class convertisseurBases

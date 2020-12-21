@@ -18,20 +18,11 @@ bool RSA::isPrimeNumber(const quint64 nb, QProgressBar *ch)
     return true;
 }
 
-bool RSA::isPrimeNumber(uintBig nb)
-{
-    uintBig sqrtNb=nb.sqrt();
-    for(uintBig i=2; i<=sqrtNb; i++)
-    {
-        if(nb % i == 0)
-            return false;
-    }
-    return true;
-}
 
-bool RSA::arePrime(uintBig a, uintBig b)
+
+bool RSA::arePrime(intBig a, intBig b)
 {
-    uintBig temp;
+    intBig temp;
     /*while(nb2>0)
     {
         temp = nb2%nb1;
@@ -57,18 +48,18 @@ bool RSA::arePrime(uintBig a, uintBig b)
         b=temp;
         temp=a;
     }
-    return temp==1;//temp== pgcd et si c'est 1, il s sont premiers entre eux
+    return temp==1;//temp== pgcd et si c'est 1, ils sont premiers entre eux
 }
 
 QMap<QString, QString> RSA::generer(QString nbPremier1, QString nbPremier2, QProgressBar *ch1, QProgressBar *ch2, QProgressBar *ch3)
 {
     //qDebug() << "RSA::generer from thread" << QThread::currentThread();
-    QDateTime start=QDateTime::currentDateTime();
+    quint64 start=QDateTime::currentMSecsSinceEpoch();
     ch1->setMaximum(99);
-    ch1->setValue(0);
+    ch1->setValue(0);//progression des 2 isPrime
     ch2->setMaximum(99);
-    ch2->setValue(0);
-    ch3->setValue(0);
+    ch2->setValue(0);//progression de  l'ajout dans la liste
+    ch3->setValue(0);//progression du chiffrement
     debug("Début de la génération.");
     QMap<QString,QString> retour;
     retour.insert("message","Erreur 1");//message (d'erreur) n'est pas chargé
@@ -79,10 +70,10 @@ QMap<QString, QString> RSA::generer(QString nbPremier1, QString nbPremier2, QPro
     retour.insert("nbPremier1", nbPremier1);
     retour.insert("nbPremier2", nbPremier2);
 
-    uintBig p(nbPremier1.toULongLong());
-    uintBig q(nbPremier2.toULongLong());
+    intBig p(nbPremier1,10);
+    intBig q(nbPremier2,10);
     debug("Base 10: p="+p.toString()+", q="+q.toString());
-    if(!isPrimeNumber(nbPremier1.toULongLong(), ch1))//p mais en quint64 pour pas faire trop long
+    if(!p.isPrime(ch1))//p mais en quint64 pour pas faire trop long
     {
         retour["message"] = "Le nombre 1 n'est pas premier";
         debug(retour["message"]);
@@ -90,7 +81,7 @@ QMap<QString, QString> RSA::generer(QString nbPremier1, QString nbPremier2, QPro
     }
     QCoreApplication::processEvents();
     debug("premier nombre validé");
-    if(!isPrimeNumber(nbPremier2.toULongLong(), ch1))
+    if(!q.isPrime(ch1))
     {
         retour["message"] = "Le nombre 2 n'est pas premier";
         debug(retour["message"]);
@@ -110,18 +101,18 @@ QMap<QString, QString> RSA::generer(QString nbPremier1, QString nbPremier2, QPro
     debug("les 2 nombres sont validés");
     debug("Les nombres donnés sont bons, création de n, e et d.");
 
-    uintBig n(p*q);
+    intBig n(p*q);
     retour["n"] = n.toString();
     debug("n="+retour["n"]);
-    uintBig phi = (p-1) * (q-1);
+    intBig phi = (p-1) * (q-1);
     debug("phi="+phi.toString());
-    uintBig e = 0;
-    uintBig d = 0;
-    QList<uintBig> *listeE = new QList<uintBig>;
+    intBig e = 0;
+    intBig d = 0;
+    QList<intBig> *listeE = new QList<intBig>;
     ch1->setValue(99);
 
     bool trouve=false;
-    for(uintBig i=phi-1; i>=2 && !trouve; i--)
+    for(intBig i=phi-1; i>=2 && !trouve; i--)
     {
         if(arePrime(i, phi))//si ils sont premiers entre eux, on les prends
             listeE->append(i);
@@ -190,13 +181,13 @@ QMap<QString, QString> RSA::generer(QString nbPremier1, QString nbPremier2, QPro
             int i2 = random64(0, listeE->size());
             e=listeE->at(i2);
 
-            uintBig phi2=phi;
-            uintBig e2=e;
-            uintBig s=0;
-            uintBig t=1;
+            intBig phi2=phi;
+            intBig e2=e;
+            intBig s=0;
+            intBig t=1;
             d = phi2/e2;
-            uintBig r=phi-d*e;
-            uintBig u=0;
+            intBig r=phi-d*e;
+            intBig u=0;
             while(r)
             {
                 u = s-d*t;
@@ -239,7 +230,7 @@ QMap<QString, QString> RSA::generer(QString nbPremier1, QString nbPremier2, QPro
         return retour;
     }
 
-    retour["message"] = "Calcul terminé en " + QString::number( QDateTime::currentDateTime().toMSecsSinceEpoch()-start.toMSecsSinceEpoch() ) + " msec.";
+    retour["message"] = "Calcul terminé en " + QString::number( QDateTime::currentMSecsSinceEpoch()-start ) + " msec.";
     retour["termine"] = "1";
     debug(retour["message"]);
     return retour;
@@ -256,15 +247,15 @@ quint64 RSA::random64(quint32 min, quint32 max)
     return rd.bounded(min, max);
 }
 
-uintBig RSA::InverseBModuloN(uintBig b, uintBig n)
+intBig RSA::InverseBModuloN(intBig b, intBig n)
 {
-    /*uintBig d;
+    /*intBig d;
     d = n/b;
 
-    uintBig s=0;
-    uintBig t=1;
-    uintBig r=n-d*b;
-    uintBig u=0;
+    intBig s=0;
+    intBig t=1;
+    intBig r=n-d*b;
+    intBig u=0;
     while(r.isEmpty())
     {
         if(s<d*t)
@@ -284,21 +275,21 @@ uintBig RSA::InverseBModuloN(uintBig b, uintBig n)
     }
     return d;*/
     //https://www.apprendre-en-ligne.net/crypto/rabin/euclide.html
-    uintBig n0=n;
-    uintBig b0=b;
-    uintBig t0=0;
-    uintBig t=1;
-    uintBig q=n0/b0;
-    uintBig r=n0 - q * b0;
+    intBig n0=n;
+    intBig b0=b;
+    intBig t0=0;
+    intBig t=1;
+    intBig q=n0/b0;
+    intBig r=n0 - q * b0;
     while(r > 0)
     {
-          uintBig temp = t0 - q * t;
+          intBig temp = t0 - q * t;
           if(temp >= 0)
           {
               temp = temp % n;
           }
           else
-              temp = n - ((uintBig(0)-temp) % n);
+              temp = n - ((intBig(0)-temp) % n);
 
           t0 = t;
           t = temp;
@@ -315,16 +306,16 @@ uintBig RSA::InverseBModuloN(uintBig b, uintBig n)
         return t;
 }
 
-uintBig RSA::chiffrer(uintBig msg, uintBig d_e, uintBig n, QProgressBar *ch)
+intBig RSA::chiffrer(intBig msg, intBig d_e, intBig n, QProgressBar *ch)
 {
     if(msg >= n)
         return msg;
     /*QDateTime start=QDateTime::currentDateTime();
     qDebug(QString("début d'un chiffrement:"+msg.toString()+" ^ "+d_e.toString()+" % "+n.toString()).toStdString().c_str());
-    uintBig d_e2_1=d_e;
-    uintBig retour_1=1;
-    uintBig msg2_1;
-    uintBig puiss_1(2);//pour pas en creer pleins
+    intBig d_e2_1=d_e;
+    intBig retour_1=1;
+    intBig msg2_1;
+    intBig puiss_1(2);//pour pas en creer pleins
     do
     {
         d_e2_1--;
@@ -349,10 +340,10 @@ uintBig RSA::chiffrer(uintBig msg, uintBig d_e, uintBig n, QProgressBar *ch)
     //plus efficace
     QDateTime start2=QDateTime::currentDateTime();
     //qDebug(QString("début d'un chiffrement:"+msg.toString()+" ^ "+d_e.toString()+" % "+n.toString()).toStdString().c_str());
-    uintBig retour(1);
-    uintBig msg2;
-    uintBig puiss;
-    uintBig d_e2;
+    intBig retour(1);
+    intBig msg2;
+    intBig puiss;
+    intBig d_e2;
     ch->setMinimum(0);
     ch->setMaximum(d_e.toString().size());//la longeur de d_e
     ch->setValue(0);

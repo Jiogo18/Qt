@@ -65,52 +65,42 @@ void fenetre::generer()
 
 void fenetre::test()
 {
-    //uintBig a=uintBig::fromText(ui->Gpremier1->text());
-    //uintBig b=uintBig::fromText(ui->Gpremier2->text());
+    //intBig a=intBig::fromText(ui->Gpremier1->text());
+    //intBig b=intBig::fromText(ui->Gpremier2->text());
     //qDebug() << a.toString() << b.toString() << a.toString(2) << b.toString(2) << a.toString(16) << b.toString(16);
     //j'ai rajouté le toString base 16, faudra aussi test le base 2 qui bug  ("\r" et "\u0011")
     //qDebug() << a.toString() << b.toString() << a.toString(20) << b.toString(20) << a.toString(90) << b.toString(90);
     //qDebug(RSA::InverseBModuloN(a, b).toString().toStdString().c_str());
 
-    uintBig a=RSA::chiffrer(123, 217691, 432739, ui->GProgressChiffrement);
-    uintBig b=RSA::chiffrer(a,217691, 432739, ui->GProgressChiffrement);
+    intBig a=RSA::chiffrer(123, 217691, 432739, ui->GProgressChiffrement);
+    intBig b=RSA::chiffrer(a,217691, 432739, ui->GProgressChiffrement);
     debug(a.toString());//chiffré 1 fois
     debug(b.toString());//chiffré 2 fois
-    debug(RSA::chiffrer(123, uintBig(217691)^2, 432739, ui->GProgressChiffrement).toString());
+    debug(RSA::chiffrer(123, intBig(217691)^2, 432739, ui->GProgressChiffrement).toString());
 }
 
 void fenetre::genererRandom()
 {
     ui->GrandomButton->setDisabled(true);
     int i=0;
-    quint64 r;
-    quint32 min=ui->GMin->text().toULongLong();
-    quint32 max=ui->GMax->text().toULongLong();
-    if(min < 2)
-        min=2;
-    if(max < 2)
-        max=2;
-    if(min > max)
-    {
-        quint32 t=min;
-        min=max;
-        max=t;
-    }
+    intBig min(ui->GMin->text(), 10);
+    if(min < 3)//on skip meme 2, de toute facon pas besoin
+        min=3;
+    intBig r(min);
     ui->GrandomText->clear();
-    if(min+10>max)
-    {
-        ui->GrandomText->append("Mettez un écart de plus de 10 entre le minimum et le maximum");
-        ui->GrandomButton->setEnabled(true);
-        return;
-    }
+    QCoreApplication::processEvents();
     QRandomGenerator64 rd = QRandomGenerator64::securelySeeded();
-    while(i<10)//to 2^31 ça suffit (limité sur la longueur des lineEdit)
+    r += rd.bounded(pow(2,31));
+    if(r.toVector(2).at(0) == 0)//pair
+        r++;
+    while(i<4)
     {
-        r = rd.bounded(min, max);
-        if(RSA::isPrimeNumber(r))
+        r = r+2;//les pair sont forcement non premier (sauf 2 mais pas grave)
+        if(r.isPrime(ui->GProgressPremiers))
         {
             i++;
-            ui->GrandomText->append(QString::number(r));
+            ui->GrandomText->append(r.toString());
+            QCoreApplication::processEvents();
         }
     }
     ui->GrandomButton->setEnabled(true);
@@ -131,9 +121,9 @@ void fenetre::chiffrerD()
     ui->CD_bCoderD->setDisabled(true);
     debug("Début du chiffrement avec D.");
     QDateTime start=QDateTime::currentDateTime();
-    uintBig msg(ui->CD_M->text(), 10);
-    uintBig d(ui->CD_D->text(), 10);
-    uintBig n(ui->CD_N->text(), 10);
+    intBig msg(ui->CD_M->text(), 10);
+    intBig d(ui->CD_D->text(), 10);
+    intBig n(ui->CD_N->text(), 10);
     if(msg >= n)
     {
         ui->CD_Resultat->setText("Le message doit etre plus petit que N");
@@ -155,9 +145,9 @@ void fenetre::chiffrerE()
     ui->CD_bCoderE->setDisabled(true);
     debug("Début du chiffrement avec E.");
     QDateTime start=QDateTime::currentDateTime();
-    uintBig msg(ui->CD_M->text(), 10);
-    uintBig e(ui->CD_E->text(), 10);
-    uintBig n(ui->CD_N->text(), 10);
+    intBig msg(ui->CD_M->text(), 10);
+    intBig e(ui->CD_E->text(), 10);
+    intBig n(ui->CD_N->text(), 10);
     if(msg >= n)
     {
         ui->CD_Resultat->setText("Le message doit etre plus petit que N");
@@ -213,15 +203,15 @@ void fenetre::crackerMsg()
     ui->BMProgressEstime->setValue(0);
     ui->BM_log->clear();
     quint64 startCrack=QDateTime::currentMSecsSinceEpoch();
-    QVector<uintBig> tab=QVector<uintBig>(ui->BM_TabTaille->value());
+    QVector<intBig> tab=QVector<intBig>(ui->BM_TabTaille->value());
     ui->BMProgressTab->setMaximum(tab.size());
-    uintBig newM;
-    uintBig M(ui->BM_M->text(), 10);
-    uintBig N(ui->BM_N->text(), 10);
-    uintBig D(ui->BM_D->text(), 10);
-    uintBig D2=D^tab.size();//augmente plus vite pour la partie 2
+    intBig newM;
+    intBig M(ui->BM_M->text(), 10);
+    intBig N(ui->BM_N->text(), 10);
+    intBig D(ui->BM_D->text(), 10);
+    intBig D2=D^tab.size();//augmente plus vite pour la partie 2
     tab[0]=M;//la premiere case
-    uintBig i;//pas bien pour les placements ds tab (il faut un quint64 max) mais après c'est utile
+    intBig i;//pas bien pour les placements ds tab (il faut un quint64 max) mais après c'est utile
     quint64 iEcart=0;
     bool trouve=false;
     quint64 start=0;

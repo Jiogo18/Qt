@@ -4,8 +4,7 @@ SOURCES += \
     main.cpp \
     fenetre.cpp \
     RSA.cpp \
-    uintBig.cpp \
-    convertisseurBases.cpp
+    intBig.cpp
 
 FORMS += \
     fenetre.ui
@@ -13,5 +12,4 @@ FORMS += \
 HEADERS += \
     fenetre.h \
     RSA.h \
-    uintBig.h \
-    convertisseurBases.h
+    intBig.h

@@ -8,7 +8,7 @@
 #include <QRandomGenerator>
 //#include "actuTask.h"
 
-//#include "uintBig.h"//test de toQString() pour convertisseurBases, peut retirer après
+//#include "intBig.h"//test de toQString() pour convertisseurBases, peut retirer après
 
 namespace Ui {
 class fenetre;
