@@ -93,7 +93,7 @@ bool connexion::pseudoValide(QString pseudo)
     {
         if(!QString("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_").contains(pseudo[i]))
         {
-            etat->setPlainText("Charactère " + pseudo[i] + " invalide");
+            etat->setPlainText(QString("Charactère ") + pseudo[i] + " invalide");
             return false;
         }
     }

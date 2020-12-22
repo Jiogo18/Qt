@@ -492,6 +492,7 @@ void fenetre::keyPressEvent(QKeyEvent *event)
 
 void fenetre::jouerSon(QString son)
 {
+#if hasMultimedia
     sonStart.setSource(QUrl::fromLocalFile("sons/start.wav"));
     sonWin.setSource(QUrl::fromLocalFile("sons/win.wav"));
     sonCarte.setSource(QUrl::fromLocalFile("sons/carte.wav"));
@@ -523,6 +524,7 @@ void fenetre::jouerSon(QString son)
     {
         sonAlerte.play();
     }
+#endif // hasMultimedia
 }
 
 void fenetre::addErreur(QString type, QString erreur)

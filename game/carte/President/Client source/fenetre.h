@@ -8,7 +8,9 @@
 #include <QVector>
 #include "connexion.h"
 #include "information.h"
+#if hasMultimedia
 #include <QSoundEffect>
+#endif // hasMultimedia
 #include <QTimer>
 
 #include <QtNetwork>
@@ -108,11 +110,13 @@ private:
 
     QTimer *sonAlerteJouerTimer;
 
+#if hasMultimedia
     QSoundEffect sonStart;
     QSoundEffect sonWin;
     QSoundEffect sonCarte;
     QSoundEffect sonMsg;
     QSoundEffect sonAlerte;
+#endif // hasMultimedia
 
 
 

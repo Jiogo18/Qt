@@ -20,7 +20,7 @@ HEADERS += \
     cartes.h
 
 
-QT += widgets core network multimedia
+QT += widgets core network #multimedia
 
 RESOURCES += \
     cartes.qrc
