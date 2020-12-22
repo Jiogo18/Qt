@@ -5,7 +5,7 @@ Screenshot::Screenshot()
 
 void Screenshot::debug(QString msg)
 {
-    qDebug(QString("["+QTime::currentTime().toString("hh:mm:ss.zzz")+"] "+msg).toStdString().c_str());
+    qDebug("%s", QString("["+QTime::currentTime().toString("hh:mm:ss.zzz")+"] "+msg).toStdString().c_str());
 }
 
 QImage Screenshot::shootScreen(int x, int y, int W, int H, int fenetre)
@@ -25,7 +25,8 @@ QImage Screenshot::Item(int x, int y, int W, int H, int fenetre)
 
 QImage Screenshot::InfoBulle(int fenetre)
 {
-    QScreen *screen = QGuiApplication::primaryScreen();
+    Q_UNUSED(fenetre)
+    //QScreen *screen = QGuiApplication::primaryScreen();
     //QImage imgScreen= screen->grabWindow(fenetre).toImage();
     QImage imgScreen = QImage("C:/Users/Jerome/Pictures/Qt/data/screenshot.png");
     save(imgScreen, QString::number(QDateTime::currentMSecsSinceEpoch()), "C:/Users/Jerome/Pictures/Qt/screenshot");
