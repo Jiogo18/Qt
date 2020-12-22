@@ -56,7 +56,7 @@ private:
     int clefsBlacklist = 0;
     QStringList whitelistValueNotable = {};
     const QRegularExpression regexNotable = QRegularExpression(QString()+
-                    "(\\\W[0-9A-F]{32}\\\W)|"+//[ or \ or "HEXA_KEY_SIZE32] or \ or "
+                    "(\\\\W[0-9A-F]{32}\\\\W)|"+//[ or \ or "HEXA_KEY_SIZE32] or \ or "
                         //obligé d'avoir le warning car c++ connait pas
                     "({[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}})",//{AN-HEXA-KEY-FOR-INSTALLATION}
                 QRegularExpression::CaseInsensitiveOption);
