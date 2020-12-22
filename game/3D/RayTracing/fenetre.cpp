@@ -8,7 +8,7 @@ fenetre::fenetre(QWidget *parent) : QGraphicsView(parent)
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    button = new QWinTaskbarButton(this);
+    //button = new QWinTaskbarButton(this);
 
     show();
     setMinimumSize(50,50);
@@ -35,7 +35,7 @@ fenetre::~fenetre()
 {
     if(map != nullptr) delete map;
     if(scene != nullptr) delete scene;
-    if(button != nullptr) delete button;
+    //if(button != nullptr) delete button;
 }
 
 void fenetre::actualise()
@@ -104,13 +104,13 @@ void fenetre::moveMouseMidWindow() { QCursor::setPos(MidWindow() + QWidget::pos(
 void fenetre::workStarted()
 {
     setCursor(Qt::WaitCursor);
-    button->progress()->setVisible(true);
+    //button->progress()->setVisible(true);
 }
 void fenetre::workFinished() {
     setCursor(Qt::ArrowCursor);
-    button->progress()->setVisible(false);
+    //button->progress()->setVisible(false);
 }
-void fenetre::setPBMax(int max) { button->progress()->setMaximum(max); }
-void fenetre::setPBValue(int value) { button->progress()->setValue(value); }
+void fenetre::setPBMax(int max) { /*button->progress()->setMaximum(max);*/ }
+void fenetre::setPBValue(int value) { /*button->progress()->setValue(value);*/ }
 
 

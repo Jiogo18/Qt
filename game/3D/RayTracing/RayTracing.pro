@@ -1,4 +1,4 @@
-QT += widgets gui core winextras
+QT += widgets gui core #winextras
 
 SOURCES += \
     DebugTime.cpp \
@@ -22,3 +22,6 @@ HEADERS += \
     map3D.h
 
 RC_ICONS = icone.ico
+
+RESOURCES += \
+    ressourpack.qrc

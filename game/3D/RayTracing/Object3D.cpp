@@ -59,13 +59,13 @@ QString OBJECT3D::getFileTexture(BLOCK::Material material, QList<BLOCK::Variatio
 QImage OBJECT3D::getTexture(QString file)
 {
     QImage img;
-    if(img.load("./ressourcepacks/default/textures/"+file+".png")) {
+    if(img.load(":/ressourcepacks/default/textures/"+file+".png")) {
         if(img.format() != QImage::Format_RGBA64)
             img = img.convertToFormat(QImage::Format_RGBA64);
         return img;
     }
     qWarning() << "[OBJECT3D::getTexture] can't load this texture:" << file;
-    /*if(img.load("./ressourcepacks/default/textures/blocks/block_nul.png"))
+    /*if(img.load(":/ressourcepacks/default/textures/blocks/block_nul.png"))
         return img;*/
     img = QImage(2,2,QImage::Format_RGBA64);
     img.fill(QColor(0, 0, 0, 100));
