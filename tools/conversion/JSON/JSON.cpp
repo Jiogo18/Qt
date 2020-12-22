@@ -129,7 +129,7 @@ JSON_Object *JSON::StrToJson(QString str)
                 int iL=0;
 
                 //quel est le nouveau charactère?
-                if(!currentLine.isEmpty() && currentLine.at(iL) == ":") {//c'est une définition
+                if(!currentLine.isEmpty() && currentLine.at(iL) == ':') {//c'est une définition
                     iL=nextChar(currentLine, iL);
                     currentLine.remove(0, iL);//on enleve, on sais ce que c'est
                     iL=0;
@@ -226,12 +226,12 @@ JSON_Object::Type JSON::typeOfValue(QString value)
 QString JSON::removeUseless(QString str)
 {
     int i = str.size()-1;//on retire tous les derniers char inutiles
-    while(i >= 0 && (str.at(i) == " " || str.at(i) == "\n"))// || currentLine.at(iL) == ","))
+    while(i >= 0 && (str.at(i) == ' ' || str.at(i) == '\n'))// || currentLine.at(iL) == ','))
         i--;//
     str.remove(i+1, str.size()-(i+1));//retire tous les derniers elements inutiles
 
     //on retire les premiers charactères inutiles
-    if(0<str.size() && (str.at(0) == " " || str.at(0) == "\n")) {
+    if(0<str.size() && (str.at(0) == ' ' || str.at(0) == '\n')) {
         i=nextChar(str, 0);
         str.remove(0, i);
     }
@@ -274,7 +274,7 @@ int JSON::endOfBlock(QString in, int iStart)
     nbBlock.insert("\\",0);
     int i=iStart+1;//on commence après l'ouverture du block
     while(nbBlock.value(start) > 0 && i < in.size()) {
-        if(in.at(i)=="\\") {//si le actuel est un \\, on le skip et celui d'après aussi
+        if(in.at(i)=='\\') {//si le actuel est un \\, on le skip et celui d'après aussi
             i+=2;
             continue;
         }
@@ -291,7 +291,7 @@ int JSON::endOfBlock(QString in, int iStart)
             continue;//on le check pas
         }*/
         if(block.contains(in.at(i))) {
-            if((nbBlock.value("\"")==1 && in.at(i)!="\"") || (nbBlock.value("'")==1 && in.at(i)!="'")) {
+            if((nbBlock.value("\"")==1 && in.at(i)!='\"') || (nbBlock.value("'")==1 && in.at(i)!='\'')) {
                 i++; continue;//on est dans un str et c'est pas pour marquer la fin du str
             }
             int iT = block.indexOf(in.at(i));
@@ -318,7 +318,7 @@ int JSON::endOfElement(QString in, int iStart)
 {
     //si le charactère n'est pas le début d'un block, on cherche la prochaine virgule (au meme niveau)
     int i=iStart;
-    while(i < in.size() && in.at(i) != ",") {//tant qu'on a pas trouvé la prochaine virgule
+    while(i < in.size() && in.at(i) != ',') {//tant qu'on a pas trouvé la prochaine virgule
         if(block.contains(in.at(i))) {//si c'est un block, on skip
             if(block.indexOf(in.at(i))%2 == 1) {//si c'est une fermeture, il y a pas de virgule après, c'etait le dernier element
                 return i-1;//on passe le ccharactère avant la fermeture
@@ -333,7 +333,7 @@ int JSON::endOfElement(QString in, int iStart)
 int JSON::nextChar(QString in, int i)
 {
     i++;
-    while(i < in.size() && (in.at(i)==" " || in.at(i)=="\n")) {
+    while(i < in.size() && (in.at(i)==' ' || in.at(i)=='\n')) {
         i++;
     }
     if(i >= in.size()) i = -1;
