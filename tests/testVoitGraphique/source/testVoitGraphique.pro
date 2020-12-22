@@ -8,3 +8,6 @@ FORMS +=
 
 HEADERS += \
     fenGraphique.h
+
+RESOURCES += \
+    images.qrc

@@ -4,7 +4,7 @@ fenGraphique::fenGraphique()
 {
     {
     scene = new QGraphicsScene;
-    QPixmap img("image.png");
+    QPixmap img(":/image.png");
     QSize size( img.size().width() / 1 , img.size().height() / 1 );
     img = img.scaled(size);
     //scene.addPixmap(img);
@@ -13,7 +13,7 @@ fenGraphique::fenGraphique()
     pen.setWidth(10);
     scene->addRect(QRectF(0, 0, 100, 100), pen);
     view = new QGraphicsView(scene);
-    scene->setBackgroundBrush(QBrush(QPixmap("route.png")));
+    scene->setBackgroundBrush(QBrush(QPixmap(":/route.png")));
 
 
     QVBoxLayout *layout = new QVBoxLayout;
@@ -21,7 +21,7 @@ fenGraphique::fenGraphique()
     setLayout(layout);
     }
 
-    QPixmap voit("voiture.png");
+    QPixmap voit(":/voiture.png");
     voit = voit.scaled(voit.width()/10, voit.height()/10);
     voiture = scene->addPixmap(voit);
     voiture->setTransformOriginPoint(voit.width()/2, voit.height()/2);
