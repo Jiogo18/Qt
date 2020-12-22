@@ -240,7 +240,9 @@ void fenetre::executer()
         std::cout << "Execution.\n";
         execution=true;
         Pause(tempsExec->value()*1000);
+#if hasMultimedia
         QSound::play("sons/start.wav");
+#endif // hasMultimedia
         repetRestant=repete->value();
         vInt = new QMap<QString, int>;
         vQString = new QMap<QString, QString>;
@@ -256,8 +258,10 @@ void fenetre::executer()
             if(repetRestant>0)
                 repetRestant--;
 
+#if hasMultimedia
             if((repetRestant==0 || repetRestant==-1) && execution)//si on continu
                 QSound::play("sons/restart.wav");
+#endif // hasMultimedia
         }
         repete->setSuffix("");
         while(touches->size())
@@ -275,11 +279,13 @@ void fenetre::executer()
             {
                 Clavier(touches->at(0), "Relaché");
             }
-            qDebug(QString("Touche automatiquement relachee : "+touches->at(0)+"\n").toStdString().c_str());
+            qDebug("%s", QString("Touche automatiquement relachee : "+touches->at(0)+"\n").toStdString().c_str());
             touches->removeAt(0);
         }
         txtInfo->setText("Terminé");
+#if hasMultimedia
         QSound::play("sons/stop.wav");
+#endif // hasMultimedia
         std::cout << "Execution terminee.\n";
 
 

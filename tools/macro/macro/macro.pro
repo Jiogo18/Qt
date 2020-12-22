@@ -1,4 +1,4 @@
-QT += widgets multimedia gui core
+QT += widgets gui core #multimedia
 
 SOURCES += \
     main.cpp \

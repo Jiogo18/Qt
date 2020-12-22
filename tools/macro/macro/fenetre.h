@@ -8,7 +8,9 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTextStream>
+#if hasMultimedia
 #include <QSound>
+#endif // hasMultimedia
 #include <QKeyEvent>
 #include <QClipboard>
 #include <QMap>
