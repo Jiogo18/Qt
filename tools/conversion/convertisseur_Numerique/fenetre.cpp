@@ -118,7 +118,7 @@ QString fenetre::BinToDec(QString valeur)
     int valeur2=0;
     for(int i=0; i<valeur.size(); i++)
     {
-        if(valeur[i] == "1")
+        if(valeur[i] == '1')
             valeur2 += pow(2,valeur.size()-i-1);
     }
     return QString::number(valeur2);
@@ -170,7 +170,7 @@ QString fenetre::CustomToDec(QString valeur)
     for(int i=valeur.size()-1; i>=0; i--)
     {
         nbChar="";
-        while(i>=0 && valeur[i] != ".")
+        while(i>=0 && valeur[i] != '.')
         {
             nbChar = valeur[i] + nbChar;
             i--;
