@@ -59,7 +59,7 @@ fenetre::fenetre()
     }
 
 
-    fenScreen = new screen;
+    fenScreen = new Screen;
     connect(fenScreen, SIGNAL(envoyerClick(QMouseEvent*)), this, SLOT(click(QMouseEvent*)));
     connect(fenScreen, SIGNAL(envoyerTouche(QKeyEvent*)), this, SLOT(clavier(QKeyEvent*)));
 
@@ -81,6 +81,7 @@ void fenetre::setEtat(QString msg)
 
 void fenetre::closeEvent(QCloseEvent *event)
 {
+    Q_UNUSED(event)
     qApp->quit();
 }
 
@@ -102,9 +103,10 @@ void fenetre::click(QMouseEvent *event)
     case Qt::RightButton:
         x=2;
         break;
-    case Qt::MidButton:
+    case Qt::MiddleButton:
         x=3;
         break;
+    default: break;// TODO Warning!
     }
     out << x;
     int y=0;
@@ -116,6 +118,7 @@ void fenetre::click(QMouseEvent *event)
     case QEvent::MouseButtonRelease:
         y = 0;
         break;
+    default: break;// TODO Warning!
     }
     out << y;
     out.device()->seek(0);

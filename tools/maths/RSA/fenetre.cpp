@@ -36,6 +36,7 @@ fenetre::~fenetre()
 
 void fenetre::closeEvent(QEvent *event)
 {
+    Q_UNUSED(event)
     qApp->quit();
     deleteLater();
     exit(0);
@@ -170,7 +171,7 @@ void fenetre::chiffrerDP()
     chiffrerD();
     if(!ui->CD_MChiffre->text().isEmpty())
     {
-        ui->CD_Resultat->setText(ui->CD_Resultat->text().remove(ui->CD_Resultat->text().size()-1)+", M à été actualisé.");
+        ui->CD_Resultat->setText(ui->CD_Resultat->text().left(ui->CD_Resultat->text().size()-1)+", M à été actualisé.");
         ui->CD_M->setText(ui->CD_MChiffre->text());
         debug(QString("M à été actualisé."));//Retire le point et rajoute le reste
     }
@@ -183,7 +184,7 @@ void fenetre::chiffrerEP()
     chiffrerE();
     if(!ui->CD_MChiffre->text().isEmpty())
     {
-        ui->CD_Resultat->setText(ui->CD_Resultat->text().remove(ui->CD_Resultat->text().size()-1)+", M à été actualisé.");
+        ui->CD_Resultat->setText(ui->CD_Resultat->text().left(ui->CD_Resultat->text().size()-1)+", M à été actualisé.");
         ui->CD_M->setText(ui->CD_MChiffre->text());
         debug(QString("M à été actualisé."));
     }
@@ -192,7 +193,7 @@ void fenetre::chiffrerEP()
 
 void fenetre::debug(QString str)
 {
-    qDebug(QString("[" + QTime::currentTime().toString("hh:mm:ss") + "] "+str).toStdString().c_str());
+    qDebug("%s", QString("[" + QTime::currentTime().toString("hh:mm:ss") + "] "+str).toStdString().c_str());
 }
 
 void fenetre::crackerMsg()
@@ -212,7 +213,7 @@ void fenetre::crackerMsg()
     intBig D2=D^tab.size();//augmente plus vite pour la partie 2
     tab[0]=M;//la premiere case
     intBig i;//pas bien pour les placements ds tab (il faut un quint64 max) mais après c'est utile
-    quint64 iEcart=0;
+    //quint64 iEcart=0;
     bool trouve=false;
     quint64 start=0;
     ui->BMProgressEstime->setMaximum(100);

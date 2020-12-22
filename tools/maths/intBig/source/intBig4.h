@@ -13,7 +13,7 @@ class intBig4 : public intBig4Parent
         intBig4(const intBig4 &value);
         intBig4(const intBig4Parent &value);
         //static const quint64 baseP=pow(2,31);//max des cases = baseP-1
-        static const quint64 baseP=pow(2,31);
+        static const quint64 baseP=2147483648;//2^31
 };
 
 #endif // INTBIG4_H

@@ -232,6 +232,7 @@ void fenetre::calcInfo1()
     if(true) {
         ui->intBig_I2->setText(intBig6B(ui->intBig_I1->text(), b1).toString(b2));
     }
+    /*wait what appened? ui->cICalcSeparation existe pas?
     else if(ui->cICalcSeparation->isChecked())//faire comme un tableau
     {
         intBig4Parent retour(b1,0);
@@ -265,7 +266,7 @@ void fenetre::calcInfo1()
             if(i+1 < retour.sizeNNul() && b2>10)
                 retour2 = "|"+retour2;
         }
-    }
+    }*/
     else
     {
         ui->intBig_I2->setText(intBig4Parent(ui->intBig_I1->text(), b1).toString(b2));

@@ -81,6 +81,7 @@ void FenServeur::keyPressEvent(QKeyEvent *event)
 
 void FenServeur::closeEvent(QCloseEvent *event)
 {
+    Q_UNUSED(event)
     qApp->quit();
 }
 
@@ -230,7 +231,7 @@ void FenServeur::donneesRecues()
             else if(message == "clavier")
             {
                 BYTE modifieur=VK_SPACE; //si y=0, mais inutile
-                BYTE touche;
+                BYTE touche = 0;
                 switch (y)
                 {
                 case 1:
@@ -410,8 +411,10 @@ void FenServeur::donneesRecues()
                 }
                 if(y)
                     keybd_event(modifieur, 0, 0, 0);
-                keybd_event(touche, 0, 0, 0);
-                keybd_event(touche, 0, 2, 0);
+                if(touche != 0) {
+                    keybd_event(touche, 0, 0, 0);
+                    keybd_event(touche, 0, 2, 0);
+                }
                 if(y)
                     keybd_event(modifieur, 0, 2, 0);
 
@@ -454,7 +457,7 @@ void FenServeur::envoyerA(const QString &message, const QPixmap &screen)
     out << cursor().pos().y();
     out.device()->seek(0); // On se replace au début du paquet
     out << (quint32) (paquet.size()- sizeof(quint32)); // On écrase le 0 qu'on avait réservé par la longueur du message
-    quint32 valeurTemp=paquet.size() - sizeof(quint32);
+    //quint32 valeurTemp=paquet.size() - sizeof(quint32);
     if(clients.size() && message != "")
     {
         clients[0]->write(paquet);

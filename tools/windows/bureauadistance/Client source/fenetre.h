@@ -55,7 +55,7 @@ class fenetre : public QWidget
 
         quint32 tailleMessage;
 
-        screen *fenScreen;
+        Screen *fenScreen;
         QTimer *timerFps;
         int Fps;
         QTimer *timerCoo;

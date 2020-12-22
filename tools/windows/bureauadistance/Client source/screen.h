@@ -2,19 +2,19 @@
 #define SCREEN_H
 
 #include <QWidget>
-#include "ui_screen.h"
+#include <ui_screen.h>
 #include <windows.h>
 
 #include <iostream>
 
 
 
-class screen : public QWidget, private Ui_screen
+class Screen : public QWidget, private Ui_screen
 {
     Q_OBJECT
 
 public:
-    explicit screen();
+    explicit Screen();
     void setScreen(QPixmap image, int x, int y);
     QPoint getMouse();
 

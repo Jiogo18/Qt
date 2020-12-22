@@ -480,7 +480,7 @@ void mc_gui::reloadFont()
         for(int iy=0; iy<nbY; iy++)
             for(int ix=0; ix<nbX; ix++) {
                 int posChar = ix+iy*nbX;
-                if(charsFont.at(posChar) == " " || charsFont.at(posChar)== "")//on rajoute pas les espaces/les vides
+                if(charsFont.at(posChar) == ' ')//on rajoute pas les espaces/les vides
                     continue;
                 fontChar.insert(name+"_"+QString::number(posChar), charsFont.at(posChar));
                 QImage *imgChar = new QImage(font->copy(QRect(QPoint(ix, iy)*tailleChar,

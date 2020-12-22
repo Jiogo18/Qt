@@ -105,6 +105,6 @@ class intBig : public intBigP
         intBig(QVector<quint64> value, quint64 base);
         intBig(const intBig &value);
         intBig(const intBigP &value);
-        static const quint64 baseP=pow(2,31);//max des cases = baseP-1
+        static const quint64 baseP=2147483648;//max des cases = baseP-1 (2^31)
 };
 #endif // INTBIG_H

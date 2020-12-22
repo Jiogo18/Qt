@@ -1,14 +1,14 @@
 #include "screen.h"
 #include "ui_screen.h"
 
-screen::screen()
+Screen::Screen()
 {
     setupUi(this);
     setMouseTracking(true);
 }
 
 
-void screen::setScreen(QPixmap image, int x, int y)
+void Screen::setScreen(QPixmap image, int x, int y)
 {
 
     vue->setGeometry(0, 0, width(), height());
@@ -27,7 +27,7 @@ void screen::setScreen(QPixmap image, int x, int y)
 
 }
 
-QPoint screen::getMouse()
+QPoint Screen::getMouse()
 {
     QPoint position =  cursor().pos();
     position.setX(  (position.x() - (pos().x()) ) *1000 / vue->width()); //donne les coo par rapport a la fenetre
@@ -44,18 +44,18 @@ QPoint screen::getMouse()
 }
 
 
-void screen::mousePressEvent(QMouseEvent *event)
+void Screen::mousePressEvent(QMouseEvent *event)
 {
     emit envoyerClick(event);
 }
-void screen::mouseReleaseEvent(QMouseEvent *event)
+void Screen::mouseReleaseEvent(QMouseEvent *event)
 {
     emit envoyerClick(event);
 }
 
 
 
-void screen::keyReleaseEvent(QKeyEvent *event)
+void Screen::keyReleaseEvent(QKeyEvent *event)
 {
     emit envoyerTouche(event);
 }

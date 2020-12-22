@@ -77,13 +77,14 @@ void fen::actuMouse()
     int x, y;
     x = cursor().pos().x();
     y = cursor().pos().y();
-    xRelatif += x-QApplication::desktop()->width()/2;
-    yRelatif += y-QApplication::desktop()->height()/2;
+    QRect screenGeometry = QGuiApplication::primaryScreen()->geometry();
+    xRelatif += x-screenGeometry.width()/2;
+    yRelatif += y-screenGeometry.height()/2;
 
     if(posRelative->isChecked())
     {
         souris->setText(QString("Position actuelle de la souris : (") + QString::number(x) + QString(", ") + QString::number(y) + QString(")\nPosition relatives : (" )+ QString::number(xRelatif) + QString(", ") + QString::number(yRelatif) + QString(")"));
-        SetCursorPos(QApplication::desktop()->width()/2, QApplication::desktop()->height()/2);
+        SetCursorPos(screenGeometry.width()/2, screenGeometry.height()/2);
     }
     else
     {
@@ -93,8 +94,9 @@ void fen::actuMouse()
 
 void fen::actuPosRelative()
 {
+    QRect screenGeometry = QGuiApplication::primaryScreen()->geometry();
     if(posRelative->isChecked())
-        SetCursorPos(QApplication::desktop()->width()/2, QApplication::desktop()->height()/2);
+        SetCursorPos(screenGeometry.width()/2, screenGeometry.height()/2);
     xRelatif=0;
     yRelatif=0;
 }
