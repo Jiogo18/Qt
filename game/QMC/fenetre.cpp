@@ -45,11 +45,11 @@ void fenetre::removeButtons()
 
 void fenetre::setBackground(QString limage)
 {
-    QPixmap background("ressourcepacks/" + ressourcepack + "/QMC/textures/gui/" + limage + ".png");
+    QPixmap background(":/ressourcepacks/" + ressourcepack + "/QMC/textures/gui/" + limage + ".png");
     if(!background)
     {
-        qDebug(("No pixmap "+limage+" in "+ressourcepack).toStdString().c_str());
-        background.load("ressourcepacks/defaut/QMC/textures/gui/" + limage + ".png");
+        qDebug("%s", ("No pixmap "+limage+" in "+ressourcepack).toStdString().c_str());
+        background.load(":/ressourcepacks/defaut/QMC/textures/gui/" + limage + ".png");
     }
     scene->setBackgroundBrush(QBrush(background));
 }

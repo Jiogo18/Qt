@@ -50,6 +50,7 @@ void GraphicsButton::setEnabled(bool etat)
 
 void GraphicsButton::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    Q_UNUSED(option) Q_UNUSED(widget)
     QBrush brush(Qt::blue);
     QString limage;
     if(actif)
@@ -70,11 +71,11 @@ void GraphicsButton::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
         brush.setColor(Qt::black);
         limage = "button0.png";
     }
-    QPixmap image("ressourcepacks/" + ressourcepack + "/QMC/textures/gui/" + limage);
+    QPixmap image(":/ressourcepacks/" + ressourcepack + "/QMC/textures/gui/" + limage);
     if(!image)
     {
-        qDebug(("No pixmap "+limage+" in "+ressourcepack).toStdString().c_str());
-        image = QPixmap("ressourcepacks/defaut/QMC/textures/gui/" + limage);
+        qDebug("%s", ("No pixmap "+limage+" in "+ressourcepack).toStdString().c_str());
+        image = QPixmap(":/ressourcepacks/defaut/QMC/textures/gui/" + limage);
     }
 
     painter->fillRect(rec, brush);

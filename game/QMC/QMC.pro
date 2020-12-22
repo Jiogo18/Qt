@@ -10,3 +10,6 @@ HEADERS += \
     fenetre.h \
     GraphicsButton.h \
     Block.h
+
+RESOURCES += \
+    ressourcepacks.qrc

@@ -26,11 +26,11 @@ void Block::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     brush.setColor(Qt::darkGray);
     limage = id+".png";
 
-    QPixmap image("ressourcepacks/" + ressourcepack + "/QMC/textures/blocks/" + limage);
+    QPixmap image(":/ressourcepacks/" + ressourcepack + "/QMC/textures/blocks/" + limage);
     if(!image)
     {
         qDebug(("No pixmap "+limage+" in "+ressourcepack).toStdString().c_str());
-        image = QPixmap("ressourcepacks/defaut/QMC/textures/blocks/" + limage);
+        image = QPixmap(":/ressourcepacks/defaut/QMC/textures/blocks/" + limage);
     }
 
     painter->fillRect(rec, brush);
