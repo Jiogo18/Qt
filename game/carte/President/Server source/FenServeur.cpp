@@ -190,7 +190,7 @@ void FenServeur::donneesRecues()
             return;
         }
 
-        if(mdp != clientsT.find(pseudo).value()->GetMDP())
+        if(mdp != *clientsT.find(pseudo).value()->GetMDP())
         {
             ts->write(preparerPaquetMsg(pseudo, "Connexion Erreur", "Le mot de passe client est invalide", "deconnexion"));
             addLog(*pseudo + " c'est connecté avec le mauvais mot de passe client");
@@ -250,7 +250,7 @@ void FenServeur::analyseMsg(Client *client, QString type, QString msg)
             {
                 if(clientsT.find(new QString(msg.mid(6, -1))).value()->isDansLaPartie())
                 {
-                    if(joueursPartie[joueurQuiJoue]->GetNom() == msg.mid(6, -1))// "/pass "=5 chars
+                    if(*joueursPartie[joueurQuiJoue]->GetNom() == msg.mid(6, -1))// "/pass "=5 chars
                     {
                         client->setForcePass(true);
                         double forcePass=0, nbPasIA=0;//on peut pas laisser en int, la virgule metrai 1 au lieu de 1.5
@@ -365,7 +365,7 @@ void FenServeur::envoyerAPartie(QString *pseudo, const QString &type, const QStr
         for(int i=0; i<joueursPartie.size(); i++)
         {
             if(message.contains("il a la versoin"))
-                addLog(QString("\"il a la version\" à ") + joueursPartie[i]->GetNom());
+                addLog(QString("\"il a la version\" à ") + *joueursPartie[i]->GetNom());
             if(joueursPartie[i]->isIA())
                 continue;
             if(joueursPartie[i]->isConnected())
@@ -880,7 +880,7 @@ void FenServeur::LancerPartie()//NewPartie NouvellePartie
     QString joueurs="";
     for(int i=0; i<4; i++)
     {
-        joueurs += joueursPartie[i]->GetNom();//retourne le nom des joueurs a la suite
+        joueurs += *joueursPartie[i]->GetNom();//retourne le nom des joueurs a la suite
         if(i+1<4)//si il reste du monde
             joueurs += ", ";
 
