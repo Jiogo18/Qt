@@ -5,6 +5,7 @@
 #include <QThread>
 #include <QProgressBar>
 #include <QMap>
+#include <QRegularExpression>
 
 #include "html.h"
 

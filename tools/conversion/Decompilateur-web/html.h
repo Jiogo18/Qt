@@ -2,6 +2,7 @@
 #define HTML_H
 
 #include <QString>
+#include <QList>
 
 namespace html {
     QString compile(QString code);
