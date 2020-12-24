@@ -156,7 +156,7 @@ QString convertisseurBases::toString(QVector<quint64> value)//str n'a pas de cha
     QString retour;
     for(int i=0; i<value.size(); i++)
     {
-        retour[i] = QString::number(value[value.size()-i-1], -1).at(0);//QChar::unicodeVersion(value[i]);
+        retour.insert(i,QString::number(value.at(value.size()-i-1), -1).at(0));//QChar::unicodeVersion(value[i]);
     }
     return retour;
 }
