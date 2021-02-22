@@ -6,8 +6,14 @@ map3D::map3D(QGraphicsScene *scene) : QObject()
     pixmap = scene->addPixmap(QPixmap(qCeil(scene->width()), qCeil(scene->height())));
     world = new World();
     //client = new Entity(Pos3D(-0.5L, 1.5L, 1.5L, -30, -20), ENTITY::Type::ghost);
-    client = new Entity(Pos3D(1.8L, 2, 1.9L, -140, -30), ENTITY::Type::ghost);//belle vue
+    //client = new Entity(Pos3D(1.8L, 2, 1.9L, -140, -30), ENTITY::Type::ghost);//belle vue
     //client = new Entity(Pos3D(1.5L, 1.1L, 0.9L, -140, -30), ENTITY::Type::ghost);//vue green_glass
+
+    //client = new Entity(Pos3D(0.5L, 1.5, 2.5L, -90, -30), ENTITY::Type::ghost);//vue miroir verre blanc
+    //client = new Entity(Pos3D(1.2L, 0.5, 2.5L, -180, -30), ENTITY::Type::ghost);//vue miroir verre vert
+    //client = new Entity(Pos3D(0.5L, 4, 1.2L, -90, -10), ENTITY::Type::ghost);//vue miroir glowstone
+    client = new Entity(Pos3D(1, 3, 1.4L, -70, -10), ENTITY::Type::ghost);//belle vue mirroir
+
     world->addEntity(client);
     world->setBlock(new Block(Pos3D(0, 0, 0, 0, 0), BLOCK::Type::cube, BLOCK::Material::oak_log));
     world->setBlock(new Block(Pos3D(0, 1, 0, 0, 0), BLOCK::Type::cube, BLOCK::Material::birch_log));
@@ -15,6 +21,14 @@ map3D::map3D(QGraphicsScene *scene) : QObject()
     world->setBlock(new Block(Pos3D(0, 1, 1, 0, 0), BLOCK::Type::cube, BLOCK::Material::glass));
     world->setBlock(new Block(Pos3D(1, 0, 0, 0, 0), BLOCK::Type::cube, BLOCK::Material::green_glass));
     world->setBlock(new Block(Pos3D(0, 2, 0, 0, 0), BLOCK::Type::cube, BLOCK::Material::glowstone));
+    world->setBlock(new Block(Pos3D(0, 0, 2, 0, 0), BLOCK::Type::cube, BLOCK::Material::mirror));
+
+    for(int i=0; i<3; i++) {//mur de miroir entouré de stone
+        world->setBlock(new Block(Pos3D(2, 0, i, 0, 0), BLOCK::Type::cube, BLOCK::Material::stone));
+        world->setBlock(new Block(Pos3D(2, 1, i, 0, 0), BLOCK::Type::cube, BLOCK::Material::mirror));
+        world->setBlock(new Block(Pos3D(2, 2, i, 0, 0), BLOCK::Type::cube, BLOCK::Material::stone));
+    }
+    world->setBlock(new Block(Pos3D(0, 3, 0, 0, 0), BLOCK::Type::cube, BLOCK::Material::mirror));
 
     rayt = new RayTracing(world, client);
     rayt->moveToThread(&rayThread);

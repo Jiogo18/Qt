@@ -77,8 +77,8 @@ public:
     Pos3D(const Pos3D &pos);
     Pos3D *operator=(const Pos3D &pos);
 
-    doubli getRX() const { return rX; }
-    doubli getRZ() const { return rZ; }
+    doubli getRX() const { return rX; }//en degré
+    doubli getRZ() const { return rZ; }//en degré
     Pos3D getPos() const { return *this; }
     void setRX(doubli rX) { this->rX = round(rX); }
     void setRZ(doubli rZ) { this->rZ = round(rZ); }
@@ -93,8 +93,8 @@ public:
     Pos3D getChildRot(doubli rXRelatif, doubli rZRelatif) const;
     Point3D changeRef(const Point3D &point) const;
 private:
-    doubli rX;
-    doubli rZ;
+    doubli rX;//en degré
+    doubli rZ;//en degré
 
     static Point3D rotation(Point3D point, doubli rX, doubli rZ);
     static doubli rotation1(doubli x, doubli y, doubli sR, doubli cR);

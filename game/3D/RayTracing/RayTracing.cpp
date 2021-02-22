@@ -208,7 +208,12 @@ void Ray::process(const World *world)
         pTexture -= pC;
         colors.append(face->getColor(pTexture, getTexture(face->getTexture())));
 
-        moveTo(Pos3D(pInter, pos.getRX(), pos.getRZ()));//TODO calculer la rotation (et si miroir ou transparant)
+        if(face->getMaterial() == BLOCK::Material::mirror) {
+            moveTo(Pos3D(pInter, face->boundRotX(pos.getRX()), face->boundRotZ(pos.getRZ())));
+        }
+        else {
+            moveTo(Pos3D(pInter, pos.getRX(), pos.getRZ()));//TODO calculer la rotation (et si miroir ou transparant)
+        }
 
         int alpha = colors.last().getColorA().alpha();
         opacity += alpha;
@@ -417,7 +422,8 @@ ColorLight RayTracing::determineColor(const Pos3D &pos, doubli xPos, doubli yPos
         doubli angleH = atan(xPos2)*RAYTRACING::angleH/90;
         for(int iy = 0; iy < pppV; iy++) {
             doubli yPos2 = round(yPos+iy/pppV);
-            doubli d = sqrt(1+sqr(xPos2)+sqr(yPos2));
+
+            doubli d = sqrt(0.56 +sqr(xPos2)+sqr(yPos2));//0.5 est arbitraie, il permet de pas avoir l'arrondi des blocs (sinon c'est 1)
             doubli angleV = asin(yPos2 / d) * RAYTRACING::angleV/90;
             qint64 start = dt.getCurrent();
             Ray ray(pos.getChildRot(angleH, angleV), facesPlan, facesImg, &dt);

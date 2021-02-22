@@ -28,5 +28,7 @@
         <file>ressourcepacks/default/textures/blocks/stripped_oak_log_top.png</file>
         <file>ressourcepacks/default/textures/blocks/stripped_spruce_log.png</file>
         <file>ressourcepacks/default/textures/blocks/stripped_spruce_log_top.png</file>
+        <file>ressourcepacks/default/textures/blocks/air.png</file>
+        <file>ressourcepacks/default/textures/blocks/mirror.png</file>
     </qresource>
 </RCC>

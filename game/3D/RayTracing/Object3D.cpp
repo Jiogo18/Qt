@@ -43,6 +43,7 @@ QString OBJECT3D::getFileTexture(BLOCK::Material material, QList<BLOCK::Variatio
     case BLOCK::Material::glowstone: texture = "blocks/glowstone"; break;
     case BLOCK::Material::glass: texture = "blocks/glass"; break;
     case BLOCK::Material::green_glass: texture = "blocks/green_stained_glass"; break;
+    case BLOCK::Material::mirror: texture ="blocks/mirror"; break;
     }
     switch (material) {
     case BLOCK::Material::oak_log:
@@ -79,7 +80,7 @@ int OBJECT3D::getLight(BLOCK::Material material, QList<BLOCK::Variation> variati
     Q_UNUSED(variations)
     switch (material) {
     case BLOCK::glowstone:
-        return 4;
+        return 5;
     default:
         return 0;
     }
@@ -150,6 +151,7 @@ Face::Face(const Face &face) : Object(face.getPos())
     maxGeometry = face.maxGeometry;
     middleGeometry = face.middleGeometry;
     texture = face.texture;
+    RX = face.RX; RZ = face.RZ;
 }
 ColorLight Face::getColor(const QPointF &point, const QImage *img) const
 {
@@ -202,11 +204,45 @@ ColorLight Face::getColor(const QPointF &point, const QImage *img) const
     }*/
     return ColorLight(0, 0, 0, 255, 0);
 }
+
+
+doubli Face::boundRotX(const doubli &posRX) const
+{
+    //petit fix pour les faces du dessus mais il faudrait faire un autre calcul pour celles penchées
+    if(variations.first() == BLOCK::Variation::top || variations.first() == BLOCK::Variation::top) {
+        return RX*4 + posRX;//4+0+
+    }
+    return RX * 4 + 180 - posRX;//4+180-
+}
+doubli Face::boundRotZ(const doubli &posRZ) const
+{
+    return RZ * 4 - 180 + posRZ;//*4-180 marche pour left et pour top
+}
+
 void Face::calcFace()
 {
     maxGeometry = rect + getPoint();
     middleGeometry = maxGeometry.getMiddle();
     texture = OBJECT3D::getFileTexture(material, variations);
+
+
+    doubli deltaX = rect.getPointMax().getX() - rect.getPointMin().getX();
+    doubli deltaY = rect.getPointMax().getY() - rect.getPointMin().getY();
+    doubli deltaZ = rect.getPointMax().getZ() - rect.getPointMin().getZ();
+
+    if(-0.5 < deltaX && deltaX < 0.5) {
+        doubli deltaXZ = sqrt(deltaX * deltaX + deltaZ * deltaZ);
+        RX = atan(deltaY / deltaXZ) + 45;
+    }
+    else {
+        doubli deltaYZ = sqrt(deltaY * deltaY + deltaZ * deltaZ);
+        RX = atan(deltaX / deltaYZ);
+    }
+    doubli deltaXY = sqrt(deltaX * deltaX + deltaY * deltaY);
+    if(-0.5 < deltaXY && deltaXY < 0.5) {
+        qDebug() << "alerte deltaZ trop faible" << deltaXY << deltaZ;
+    }
+    RZ = atan(deltaXY / deltaZ);
 }
 
 

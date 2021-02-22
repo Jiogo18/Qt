@@ -18,7 +18,8 @@ namespace BLOCK {
         stone,
         glowstone,
         glass,
-        green_glass
+        green_glass,
+        mirror,
     };
     enum Variation {
         front, back, left, right, top, bottom
@@ -93,6 +94,9 @@ public:
     bool isValid() const { return material != BLOCK::Material::none; }
     ColorLight getColor(const QPointF &point, const QImage *img) const;
     QString getTexture() const { return texture; }
+    BLOCK::Material getMaterial() const { return material; }
+    doubli boundRotX(const doubli &posRX) const;
+    doubli boundRotZ(const doubli &posRZ) const;
 private:
     Rect3D rect;
     Rect3D maxGeometry;
@@ -101,6 +105,8 @@ private:
     BLOCK::Material material;
     QList<BLOCK::Variation> variations;
     QString texture;
+    doubli RX = 0;
+    doubli RZ = 0;
 };
 
 
