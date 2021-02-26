@@ -19,8 +19,8 @@ namespace RAYTRACING {
     const doubli angleV = 100;//180° = inf, 0° = 0
     const doubli xMax = tan(RAYTRACING::angleH/2);
     const doubli yMax = tan(RAYTRACING::angleV/2);
-    const int pppH = 2;
-    const int pppV = 2;
+    const int pppH = 1;
+    const int pppV = 1;
     const int ppp = pppV * pppH;
     int functionForDebugLOL();
 }
