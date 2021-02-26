@@ -361,11 +361,11 @@ void RayTracing::draw(const QSizeF &sceneSize)
     double lightTotal = 0;
     for(int x=0; x<pixmap.width(); x++) {
         //pos en % de pixmap.width/2
-        doubli xPos = round(static_cast<doubli>(2.0L*x/(pixmap.width()-1) - 1));
+        doubli xPos = round(static_cast<doubli>(2.0L*x/pixmap.width() - 1));
         emit step(x);
         for(int y=0; y<pixmap.height(); y++) {
             //pos en % de pixmap.height/2
-            doubli yPos = round(static_cast<doubli>((1 - 2.0L*y / (pixmap.height()-1))));
+            doubli yPos = round(static_cast<doubli>((1 - 2.0L*y / pixmap.height())));
             qint64 start = dt.getCurrent();
             colors[x].insert(y, determineColor(pos, xPos, yPos));
             lightTotal += colors.at(x).at(y).getLight();
@@ -417,14 +417,16 @@ ColorLight RayTracing::determineColor(const Pos3D &pos, doubli xPos, doubli yPos
     int red = 0, blue = 0, green = 0;
     int light = 0;//une sorte de moyenne pour privilégier le poids des très lumineux
     //en théorie il faudrait que les rayons soient random (pour le miroir et la transparence) mais pas grave
+    doubli xPos2 = xPos * xMax;
+    doubli yPos2 = yPos * yMax;
     for(int ix = 0; ix < pppH; ix++) {
-        doubli xPos2 = round(xPos+ix/pppH);
-        doubli angleH = atan(xPos2)*RAYTRACING::angleH/90;
+        doubli xPos3 = xPos2 + ix/pppH * xMax;
+        doubli angleH = atan(xPos3);
         for(int iy = 0; iy < pppV; iy++) {
-            doubli yPos2 = round(yPos+iy/pppV);
+            doubli yPos3 = yPos2 + iy/pppV * yMax;
+            doubli d = sqrt(1 + sqr(xPos3) + sqr(yPos3));
+            doubli angleV = asin(yPos3 / d);
 
-            doubli d = sqrt(0.56 +sqr(xPos2)+sqr(yPos2));//0.5 est arbitraie, il permet de pas avoir l'arrondi des blocs (sinon c'est 1)
-            doubli angleV = asin(yPos2 / d) * RAYTRACING::angleV/90;
             qint64 start = dt.getCurrent();
             Ray ray(pos.getChildRot(angleH, angleV), facesPlan, facesImg, &dt);
             dt.addValue("RayTracing::determineColor_1", dt.getCurrent()-start);
@@ -442,8 +444,8 @@ ColorLight RayTracing::determineColor(const Pos3D &pos, doubli xPos, doubli yPos
     /*if(light == 0)//aucune source de lumiere
         return ColorLight(0, 0, 0, 255, 0);*/
     if(light < 1)
-        light = 1;//TODO retirer ça et remettre celui avant
+        light = ppp;//TODO retirer ça et remettre celui avant
 
-    return ColorLight(red/(pppH*pppV), green/(pppH*pppV), blue/(pppH*pppV), 255, light/(pppH*pppV));
+    return ColorLight(red/ppp, green/ppp, blue/ppp, 255, light/ppp);
 }
 

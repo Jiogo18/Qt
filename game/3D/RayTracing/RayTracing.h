@@ -16,9 +16,12 @@
 namespace RAYTRACING {
     const doubli viewDistance = 100;
     const doubli angleH = 120;//de 156° à 172° max pour un Humain (1 oeil)
-    const doubli angleV = 100;
-    const int pppH = 1;
-    const int pppV = 1;
+    const doubli angleV = 100;//180° = inf, 0° = 0
+    const doubli xMax = tan(RAYTRACING::angleH/2);
+    const doubli yMax = tan(RAYTRACING::angleV/2);
+    const int pppH = 2;
+    const int pppV = 2;
+    const int ppp = pppV * pppH;
     int functionForDebugLOL();
 }
 using namespace RAYTRACING;
