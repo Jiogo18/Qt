@@ -9,7 +9,6 @@
 #include <QDebug>
 #include <QKeyEvent>
 #include <QPoint>
-#include <QPixmap>
 #include <QThread>
 //#include <QWinTaskbarButton>//need 'winextras' removed in Qt 6.0.0
 //#include <QWinTaskbarProgress>
@@ -36,6 +35,8 @@ public slots:
 //    void setPBValue(int value);
 private:
     QTimer timerRefresh;
+    qint64 lastRefreshTime;
+    qint64 lastRefreshDuration;
     map3D *map = nullptr;
     QThread GUIThread;
     GUI *gui = nullptr;

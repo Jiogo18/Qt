@@ -25,11 +25,11 @@ fenetre::fenetre(QWidget *parent) : QGraphicsView(parent)
     //posMouse = QPoint(0, 0);
 
 
+    lastRefreshTime = 0;
     actualise();
 
-    timerRefresh.setInterval(10000);
-    //QObject::connect(&timerRefresh, &QTimer::timeout, this, &fenetre::actualise);
-    //timerRefresh.start();
+    timerRefresh.setSingleShot(true);
+    QObject::connect(&timerRefresh, &QTimer::timeout, this, &fenetre::actualise);
 }
 
 fenetre::~fenetre()
@@ -42,12 +42,14 @@ fenetre::~fenetre()
 void fenetre::actualise()
 {
     gui->setSceneSize(geometry().size());
+    lastRefreshTime = QDateTime::currentMSecsSinceEpoch();
     gui->refresh();
 }
 
 
 void fenetre::keyPressEvent(QKeyEvent *event)
 {
+    const Pos3D &previousPos = map->getClient()->getPos();
     switch (event->key()) {
     case Qt::Key_Z:
         map->moveFront();
@@ -84,6 +86,18 @@ void fenetre::keyPressEvent(QKeyEvent *event)
         break;
     }
     qDebug() << "pos client" << map->getClient()->getPos();
+    if(!(map->getClient()->getPos() == previousPos) && lastRefreshDuration < 300) {
+        //si on a bougé et que ça prend pas trop de temps
+        if(lastRefreshTime + 400 < QDateTime::currentMSecsSinceEpoch() ) {
+            //si ça fait trop longtemps qu'on a pas update
+            timerRefresh.stop();
+            actualise();
+        }
+        else {
+            //actu dans 100 msec ou plus si on reviens ici
+            timerRefresh.start(lastRefreshDuration / 2);
+        }
+    }
 }
 //void fenetre::mouseMoveEvent(QMouseEvent *event)
 //{
@@ -109,6 +123,7 @@ void fenetre::workStarted()
 void fenetre::workFinished() {
     setCursor(Qt::ArrowCursor);
     //button->progress()->setVisible(false);
+    lastRefreshDuration = QDateTime::currentMSecsSinceEpoch() - lastRefreshTime;
 }
 //void fenetre::setPBMax(int max) { /*button->progress()->setMaximum(max);*/ }
 //void fenetre::setPBValue(int value) { /*button->progress()->setValue(value);*/ }
