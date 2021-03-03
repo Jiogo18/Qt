@@ -144,6 +144,7 @@ public:
     bool setBlock(Block *block);
     bool haveBlock(const Point3D &pos) const;
     Block *getBlock(const Point3D &pos) const;
+    bool removeBlock(const Point3D &pos);
     bool contains(const Point3D &pos) const;
     static Point3D chunkOfPos(const Point3D &blockPos) { return qFloor(blockPos / Chunk::chunkSize); }
     static Point3D chunkOrigin(const Point3D &chunkPos) { return qFloor(chunkPos) * Chunk::chunkSize; }
@@ -195,6 +196,8 @@ public:
     void moveBack() { moveWithRot(attribute.getSpeedB(), 180); }
     void moveLeft() { moveWithRot(attribute.getSpeedL(), -90); }
     void moveRight() { moveWithRot(attribute.getSpeedR(), 90); }
+    void moveTo(const Point3D &point) { setPoint(point); }
+    void moveTo(const Pos3D &pos) { setPoint(pos.getPoint()); setRX(pos.getRX()); setRZ(pos.getRZ()); }
     void moveRX(doubli rX) { addRX(rX); }
     void moveRZ(doubli rZ) { addRZ(rZ); }
 private:

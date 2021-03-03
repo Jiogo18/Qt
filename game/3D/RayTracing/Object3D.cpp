@@ -87,7 +87,10 @@ int OBJECT3D::getLight(BLOCK::Material material, QList<BLOCK::Variation> variati
 }
 
 
-
+ColorLight::ColorLight()
+{
+    this->light = 0;
+}
 ColorLight::ColorLight(int r, int g, int b, int a, int light)
 {
     setRed(r); setGreen(g); setBlue(b); setAlpha(a);
@@ -336,7 +339,7 @@ bool Chunk::setBlock(Block *block)
     if(!contains(block->getPoint()))
         return false;
     if(haveBlock(block->getPoint())) {
-        delete getBlock(block->getPoint());
+        removeBlock(block->getPoint());
     }
     blocks.append(block);
     calcMinMaxPoint();
@@ -351,6 +354,16 @@ Block *Chunk::getBlock(const Point3D &pos) const
             return blocks.at(i);
     return nullptr;
 }
+
+bool Chunk::removeBlock(const Point3D &pos)
+{
+    Block *block = getBlock(pos);
+    if(!block) return false;
+    blocks.removeAll(block);
+    delete block;
+    return true;
+}
+
 bool Chunk::contains(const Point3D &pos) const { return chunkOfPos(pos) == getPoint(); }
 
 void Chunk::calcMinMaxPoint()
@@ -413,6 +426,7 @@ Entity::Entity(const Pos3D &pos, ENTITY::Type type) : Object(pos)
 {
     attribute.setType(type);
 }
+
 
 
 

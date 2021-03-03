@@ -1,7 +1,7 @@
 #ifndef FENETRE_H
 #define FENETRE_H
 
-
+#include "GUI.h"
 #include "map3D.h"
 #include <QGraphicsView>
 #include <QGraphicsScene>
@@ -10,6 +10,7 @@
 #include <QKeyEvent>
 #include <QPoint>
 #include <QPixmap>
+#include <QThread>
 //#include <QWinTaskbarButton>//need 'winextras' removed in Qt 6.0.0
 //#include <QWinTaskbarProgress>
 
@@ -22,24 +23,26 @@ public:
     void actualise();
 
     void keyPressEvent(QKeyEvent *event) override;
-    void mouseMoveEvent(QMouseEvent *event) override;
+//    void mouseMoveEvent(QMouseEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
     //void showEvent(QShowEvent *event) override { Q_UNUSED(event) button->setWindow(this->windowHandle()); }
-    QPoint MidWindow();
-    void moveMouseMidWindow();
+//    QPoint MidWindow();
+//    void moveMouseMidWindow();
 
 public slots:
     void workStarted();
     void workFinished();
-    void setPBMax(int max);
-    void setPBValue(int value);
+//    void setPBMax(int max);
+//    void setPBValue(int value);
 private:
     QTimer timerRefresh;
     map3D *map = nullptr;
-    QPoint posMouse;
-    QGraphicsScene *scene;
-    //QWinTaskbarButton *button = nullptr;
+    QThread GUIThread;
+    GUI *gui = nullptr;
 
+    //QWinTaskbarButton *winTaskbarButt = nullptr;
+
+//    QPoint posMouse;
     doubli MouseSensibility = 100;
 };
 

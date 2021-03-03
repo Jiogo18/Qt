@@ -1,6 +1,5 @@
 #include "RayTracing.h"
 
-int RAYTRACING::functionForDebugLOL() { return 0; }
 
 
 Plan::Plan() {}
@@ -167,15 +166,68 @@ Plan *Plan::operator =(const Plan &plan)
 
 
 
-Ray::Ray(Pos3D pos, QMap<const Face*, const Plan*> *facesPlan, QMap<QString, const QImage*> *facesImg, DebugTime *dt)
+
+
+template<typename T>
+PixScreen<T>::PixScreen(const QSize &size)
 {
+    screen = QList<QList<T>>(size.width());
+    for(int i=0; i<size.width(); i++) {
+        screen[i] = QList<T>(size.height());
+    }
+}
+
+
+RayTracingRessources::RayTracingRessources(const World *world, const Pos3D &clientPos, DebugTime *dt)
+{
+    this->world = world; this->clientPos = clientPos;
+    facesPlan = new QMap<const Face*, const Plan*>;
+    facesImg = new QMap<QString, const QImage*>;
     this->dt = dt;
+}
+
+RayTracingRessources::~RayTracingRessources()
+{
+    if(facesPlan != nullptr) {
+        QMapIterator<const Face*, const Plan*> i(*facesPlan);
+        while(i.hasNext()) {
+            i.next();
+            delete i.value();
+        }
+        delete facesPlan;
+    }
+    if(facesImg != nullptr) {
+        QMapIterator<QString, const QImage*> i(*facesImg);
+        while(i.hasNext()) {
+            i.next();
+            delete i.value();
+        }
+        delete facesImg;
+    }
+}
+
+
+void RayTracingRessources::worldChanged()
+{
+    QMapIterator<const Face*, const Plan*> i(*facesPlan);
+    while(i.hasNext()) {
+        i.next();
+        QPointer<const Face> pointer(i.key());
+        if(pointer.isNull())//if it's destroyed or undefined
+            facesPlan->remove(i.key());
+    }
+}
+
+
+
+
+Ray::Ray(Pos3D pos, RayTracingRessources *rtRess)
+{
+    this->rtRess = rtRess;
     origin = pos;
     distParcouru = 0;
     moveTo(pos);
     distParcouru = 0;
-    this->facesPlan = facesPlan;
-    this->facesImg = facesImg;
 }
 
 ColorLight Ray::getColor() const
@@ -191,10 +243,10 @@ ColorLight Ray::getColor() const
 void Ray::process(const World *world)
 {
     while(distParcouru < viewDistance) {//pas exactement view distance mais pas loins (2*..?)
-        qint64 start = dt->getCurrent();
+        qint64 start = rtRess->dt->getCurrent();
         Point3D pInter;
         const Face *face = getFirstIntersection(world, &pInter);
-        dt->addValue("Ray::process_face", dt->getCurrent()-start);
+        rtRess->dt->addValue("Ray::process_face", rtRess->dt->getCurrent()-start);
         if(face == nullptr || !face->isValid())
             break;//c'est normal si on va dans le vide
 
@@ -219,7 +271,6 @@ void Ray::process(const World *world)
         opacity += alpha;
         if(opacity >= 255)
             break;//on s'arrete la
-        functionForDebugLOL();
         //break;//TODO empecher de calculer après pour les tests (avoir que la première face)
         //Tips: transparant il faut penser à passer sur la face de l'autre coté... trop complexe :'(
     }
@@ -242,7 +293,7 @@ const Face *Ray::getFirstIntersection(const World *world, Point3D *pInter) const
         Chunk *chunk = world->getChunks().at(i);
         if(Point3D::distanceMax(chunk->getPoint(), pos) > viewDistance)
             continue;
-        qint64 start1 = dt->getCurrent();
+        qint64 start1 = rtRess->dt->getCurrent();
         for(int i2=0; i2<chunk->getBlocks()->size(); i2++) {
             Block *block = chunk->getBlocks()->at(i2);
             if(Point3D::distanceMax(block->getPoint(), pos) > viewDistance)
@@ -252,6 +303,8 @@ const Face *Ray::getFirstIntersection(const World *world, Point3D *pInter) const
                 if(face == lastFace)
                     continue;
                 const Plan *plan = getPlan(face);
+
+                if(!plan) continue;
 
                 Point3D pInter = plan->intersection(pos, posNextPoint);
 
@@ -264,13 +317,10 @@ const Face *Ray::getFirstIntersection(const World *world, Point3D *pInter) const
                 if(faceMin != nullptr && faceMin->isValid()) {
                     if(distanceInter > distanceInterMin)
                         continue;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wfloat-equal"
                     distanceBlock = round(Point3D::distance(pos, block->getMiddleGeometry()));
                     if(distanceInter == distanceInterMin) {
                         if(distanceBlock >= distanceBlockMin)
                             continue;
-#pragma clang diagnostic pop
                     }
                 }
                 else {
@@ -291,7 +341,7 @@ const Face *Ray::getFirstIntersection(const World *world, Point3D *pInter) const
             }
 
         }
-        dt->addValue("Ray::firstIntersection_1", dt->getCurrent()-start1);
+        rtRess->dt->addValue("Ray::firstIntersection_1", rtRess->dt->getCurrent()-start1);
 
     }
     *pInter = pInterMin;
@@ -300,152 +350,236 @@ const Face *Ray::getFirstIntersection(const World *world, Point3D *pInter) const
 
 const Plan *Ray::getPlan(const Face *face) const
 {
-    if(!facesPlan->contains(face))
-        facesPlan->insert(face, new Plan(face->getMaxGeometry()));
-    return facesPlan->value(face);
+    if(!rtRess->facesPlan->contains(face)) {
+        rtRess->facesPlan->insert(face, new Plan(face->getMaxGeometry()));
+    }
+    return rtRess->facesPlan->value(face);
 }
-const QImage *Ray::getTexture(QString file) const
+
+const QImage *Ray::getTexture(const QString &file) const
 {
-    if(!facesImg->contains(file)) {
+    if(!rtRess->facesImg->contains(file)) {
         QImage img = OBJECT3D::getTexture(file);
         if(img.isNull()) {
-            facesImg->insert(file, nullptr);
+            rtRess->facesImg->insert(file, nullptr);
         }
-        else
-            facesImg->insert(file, new QImage(img));
-
+        else {
+            rtRess->facesImg->insert(file, new QImage(img));
+        }
     }
-    return facesImg->value(file);
+    return rtRess->facesImg->value(file);
 }
 
 
 
 
-RayTracing::RayTracing(const World *world, const Entity *client) : QObject()
+
+
+RayTracingWorker::RayTracingWorker(int workerId, RayTracingRessources *rtRess, QObject *parent) : QThread(parent)
 {
-    this->world = world;
-    this->client = client;
-    connect(world, &World::changed, this, &RayTracing::worldChanged);
-    facesPlan = new QMap<const Face*, const Plan*>;
-    facesImg = new QMap<QString, const QImage*>;
+    this->workerId = workerId;
+    this->rtRess = rtRess;
+}
+
+RayTracingWorker *RayTracingWorker::setPrimaryWork(const QList<doubli> &yPosList, const QSize &sceneSize)
+{
+    this->yPosList = yPosList;
+    this->sceneSize = sceneSize;
+    return this;
+}
+
+
+
+QList<doubli> RayTracingWorker::calcyPosList(const int &sceneHeight)
+{
+    QList<doubli> yPosList(sceneHeight);
+    for(int y = 0; y<sceneHeight; y++) {
+        yPosList.replace(y, round(static_cast<doubli>(1 - 2.0L*y/sceneHeight) * yMax));
+    }
+    return yPosList;
+}
+
+
+QList<Pos3D> RayTracingWorker::calcRaysPosColumn(const int &x, const QSize &sceneSize, const Pos3D &clientPos, const QList<doubli> &yPosList)
+{
+    QList<Pos3D> raysPos(sceneSize.height());
+    //pos en % de pixmap.width/2 * xMax
+    doubli xPos = round(static_cast<doubli>(2.0L * x/sceneSize.width() - 1) * xMax);
+    doubli angleH = atan(xPos);
+    for(int y = 0; y < sceneSize.height(); y++) {
+        //pos en % de pixmap.height/2 * yMax
+        doubli yPos = yPosList.at(y);
+        doubli d = sqrt(sqr(xPos) + sqr(yPos) + 1);
+        doubli angleV = asin(yPos / d);
+
+        raysPos.replace(y, clientPos.getChildRot(angleH, angleV));
+    }
+
+    return raysPos;
+}
+
+void RayTracingWorker::run() {
+    int totalLight = 0;
+
+    qint64 start = rtRess->dt->getCurrent();
+    QList<Pos3D> initialPos = calcRaysPosColumn(xScene, sceneSize, rtRess->clientPos, yPosList);
+    rtRess->dt->addValue("RayTracingWorker::run_calcRaysPosColumn", rtRess->dt->getCurrent() - start);
+
+    start = rtRess->dt->getCurrent();
+    QList<ColorLight> colors(initialPos.length());
+    for(int i = 0; i<initialPos.length(); i++) {
+        qint64 start2 = rtRess->dt->getCurrent();
+        Ray ray(initialPos.at(i), rtRess);
+        rtRess->dt->addValue("RayTracingWorker::run_1", rtRess->dt->getCurrent()-start2);
+
+        start2 = rtRess->dt->getCurrent();
+        ray.process(rtRess->world);
+        rtRess->dt->addValue("RayTracingWorker::run_2", rtRess->dt->getCurrent()-start2);
+
+        start2 = rtRess->dt->getCurrent();
+        ColorLight colorL = ray.getColor();
+        QColor colorA = colorL.getColorA();
+        int red = colorA.red() * colorA.alpha()/255;
+        int green = colorA.green() * colorA.alpha()/255;
+        int blue = colorA.blue() * colorA.alpha()/255;
+        int light = colorL.getLight();
+
+        light += RAYTRACING::gamma;
+
+        totalLight += light;
+        colors.replace(i, ColorLight(red, green, blue, 255, light));
+        rtRess->dt->addValue("RayTracingWorker::run_3", rtRess->dt->getCurrent()-start2);
+    }
+
+    rtRess->dt->addValue("RayTracingWorker::run_colors", rtRess->dt->getCurrent() - start);
+    emit resultReady(this, xScene, colors, totalLight);
+}
+
+
+
+
+RayTracing::RayTracing(const map3D *map) : QThread()
+{
+    this->map = map;
+    rtRess = new RayTracingRessources(map->getWorld(), map->getClient()->getPos(), &dt);
+
+    connect(map->getWorld(), &World::changed, this, &RayTracing::worldChanged);
+
+    rayWorkers = QList<RayTracingWorker*>(RAYTRACING::WorkerThread);
+    for(int i=0; i<rayWorkers.length(); i++) {
+        rayWorkers[i] = new RayTracingWorker(i, rtRess);
+        connect(rayWorkers[i], &RayTracingWorker::resultReady, this, &RayTracing::onRayWorkerReady);
+    }
+    image = QImage(1, 1, QImage::Format::Format_RGB32);
+    image.fill(Qt::black);
 }
 
 RayTracing::~RayTracing()
 {
-    if(facesPlan != nullptr) {
-        QMapIterator<const Face*, const Plan*> i(*facesPlan);
-        while(i.hasNext()) {
-            i.next();
-            delete i.value();
-        }
-        delete facesPlan;
+    for(int i=0; i<rayWorkers.length(); i++) rayWorkers[i]->quit();
+    for(int i=0; i<rayWorkers.length(); i++) {
+        rayWorkers[i]->wait(1000);
+        delete rayWorkers[i];
     }
-    if(facesImg != nullptr) {
-        QMapIterator<QString, const QImage*> i(*facesImg);
-        while(i.hasNext()) {
-            i.next();
-            delete i.value();
-        }
-        delete facesImg;
-    }
+    rayWorkers.clear();
 }
-void RayTracing::draw(const QSizeF &sceneSize)
+
+
+void RayTracing::onRayWorkerReady(RayTracingWorker *worker, int x, const QList<ColorLight> &c, int totalLight)
 {
-    dt.clear();
-    const Pos3D pos = client->getPos();
-    QPixmap pixmap(qFloor(sceneSize.width()), qFloor(sceneSize.height()));
-    emit start(pixmap.width());
-    qDebug() << "RayTracing::draw #start";
+    processDone++;
+    lightPerColumn.replace(x, totalLight);
+    colors.setColumn(x, c);
 
-    QVector<QVector<ColorLight>> colors(pixmap.width());
-    double lightTotal = 0;
-    for(int x=0; x<pixmap.width(); x++) {
-        //pos en % de pixmap.width/2
-        doubli xPos = round(static_cast<doubli>(2.0L*x/pixmap.width() - 1));
-        emit step(x);
-        for(int y=0; y<pixmap.height(); y++) {
-            //pos en % de pixmap.height/2
-            doubli yPos = round(static_cast<doubli>((1 - 2.0L*y / pixmap.height())));
-            qint64 start = dt.getCurrent();
-            colors[x].insert(y, determineColor(pos, xPos, yPos));
-            lightTotal += colors.at(x).at(y).getLight();
-            dt.addValue("RayTracing::draw_insert", dt.getCurrent()-start);
-        }
-
+    if(processDone < processToStart) {
+        assignNextRayWork(worker);
+        if(processDone % RAYTRACING::RefreshColumn == 0) paint();
     }
-
-    qDebug() << "RayTracing::draw #drawcolor";
-    QPainter painter;
-    painter.begin(&pixmap);
-    lightTotal /= (pixmap.width() * pixmap.height());//moyenne
-    if(lightTotal < 1.0) lightTotal=1;
-    qDebug() << "light" << lightTotal;
-
-    for(int x=0; x<colors.size(); x++) {
-        emit step(x);
-        for(int y=0; y<colors.at(x).size(); y++) {
-            QColor color = colors.at(x).at(y).getColorReduced(lightTotal);
-            painter.setPen(QPen(QBrush(color), 1));
-            painter.drawPoint(x, y);
-        }
+    else {
+        onAllWorkersFinished();
     }
-    painter.end();
-    qDebug() << "RayTracing::draw #end" << dt;
-    emit finished(pixmap);
 }
 
 void RayTracing::worldChanged(const WorldChange &change) {
     switch (change.type()) {
     case WorldChange::Type::block:
     case WorldChange::Type::chunk: {
-            QMapIterator<const Face*, const Plan*> i(*facesPlan);
-            while(i.hasNext()) {
-                i.next();
-                QPointer<const Face> pointer(i.key());
-                if(pointer.isNull())//if it's destroyed or undefined
-                    facesPlan->remove(i.key());
-            }
-        }
+        rtRess->worldChanged();
         break;
+    }
     case WorldChange::Type::entity:
         break;
     }
 }
 
-ColorLight RayTracing::determineColor(const Pos3D &pos, doubli xPos, doubli yPos)
-{
-    int red = 0, blue = 0, green = 0;
-    int light = 0;//une sorte de moyenne pour privilégier le poids des très lumineux
-    //en théorie il faudrait que les rayons soient random (pour le miroir et la transparence) mais pas grave
-    doubli xPos2 = xPos * xMax;
-    doubli yPos2 = yPos * yMax;
-    for(int ix = 0; ix < pppH; ix++) {
-        doubli xPos3 = xPos2 + ix/pppH * xMax;
-        doubli angleH = atan(xPos3);
-        for(int iy = 0; iy < pppV; iy++) {
-            doubli yPos3 = yPos2 + iy/pppV * yMax;
-            doubli d = sqrt(1 + sqr(xPos3) + sqr(yPos3));
-            doubli angleV = asin(yPos3 / d);
+void RayTracing::run() {
+    dt.clear();
+    startRun = dt.getCurrent();
 
-            qint64 start = dt.getCurrent();
-            Ray ray(pos.getChildRot(angleH, angleV), facesPlan, facesImg, &dt);
-            dt.addValue("RayTracing::determineColor_1", dt.getCurrent()-start);
-            start = dt.getCurrent();
-            ray.process(world);
-            dt.addValue("RayTracing::determineColor_2", dt.getCurrent()-start);
-            ColorLight colorL = ray.getColor();
-            QColor colorA = colorL.getColorA();
-            red += colorA.red() * colorA.alpha()/255;
-            green += colorA.green() * colorA.alpha()/255;
-            blue += colorA.blue() * colorA.alpha()/255;
-            light += colorL.getLight();
+    if(calcSize != colors.size()) {
+        yPosList = RayTracingWorker::calcyPosList(calcSize.height());
+        for(int i=0; i<rayWorkers.length(); i++) {
+            rayWorkers[i]->setPrimaryWork(yPosList, calcSize);
         }
+        colors = PixScreen<ColorLight>(calcSize);
+        lightPerColumn = QList<double>(calcSize.width());
+        image = image.scaled(calcSize);
     }
-    /*if(light == 0)//aucune source de lumiere
-        return ColorLight(0, 0, 0, 255, 0);*/
-    if(light < 1)
-        light = ppp;//TODO retirer ça et remettre celui avant
 
-    return ColorLight(red/ppp, green/ppp, blue/ppp, 255, light/ppp);
+    rtRess->clientPos = map->getClient()->getPos();
+
+    processToStart = calcSize.width();
+    processDone = 0;
+    processStarted = 0;
+
+    workersInProcess = true;
+    for(int i = 0; i < rayWorkers.length() && i < processToStart; i++) {
+        assignNextRayWork(rayWorkers[i]);
+    }
+    // then wait for the last onRayWorkerReady
+    // N.B. this function takes less than 1 msec
 }
 
+void RayTracing::assignNextRayWork(RayTracingWorker *worker)
+{
+    if(processStarted >= processToStart || worker->isRunning()) return;
+    worker->setWork(processStarted)->start();
+    processStarted++;
+}
+
+double RayTracing::calcTotalLight() const
+{
+    double totalLight = 0;//une sorte de moyenne pour privilégier le poids des très lumineux
+    for(int i=0; i<lightPerColumn.length(); i++) totalLight += lightPerColumn.at(i);
+    totalLight /= colors.rowNumber();//moyenne par pixel
+    return totalLight;
+    // full screen : 2 msec / 20 appels
+}
+
+void RayTracing::paint()
+{
+    qint64 start = dt.getCurrent();
+    double totalLight = calcTotalLight();
+    qDebug() << "RayTracing::paint #totalLight" << totalLight;
+
+    for(int x = 0; x < colors.width() && x < processDone; x++) {
+        for(int y = 0; y < colors.height(); y++) {
+            ColorLight cl = colors.at(x, y);
+            QColor color = cl.getColorReduced(totalLight);
+            image.setPixelColor(x, y, color);
+        }
+    }
+
+    dt.addValue("paint", dt.getCurrent() - start);
+    emit resultReady(image);
+}
+
+
+void RayTracing::onAllWorkersFinished()
+{
+    qDebug() << "All ray workers has finished, processDone :" << processDone << "/" << processToStart;
+    paint();
+    dt.addValue("run", dt.getCurrent() - startRun);
+    qDebug() << "GUIWorker::run #end" << dt;
+    workersInProcess = false;
+}

@@ -2,6 +2,7 @@ QT += widgets gui core #winextras
 
 SOURCES += \
     DebugTime.cpp \
+    GUI.cpp \
     Object3D.cpp \
     Point3D.cpp \
     RayTracing.cpp \
@@ -13,6 +14,7 @@ SOURCES += \
 
 HEADERS += \
     DebugTime.h \
+    GUI.h \
     Object3D.h \
     Point3D.h \
     RayTracing.h \
